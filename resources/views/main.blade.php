@@ -6,6 +6,8 @@
 
         <title>{{ isset($title) ? $title : 'SIKOM1416' }}</title>
 
+        <link rel="shortcut icon" href="{{ asset('images/logo/logo.png') }}" type="image/x-icon">
+
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,7 +23,7 @@
         @stack('style')
     </head>
     <body>
-        <div class="max-w-[2500px] relative">
+        <div class="max-w-[2500px] relative overflow-hidden">
             <!-- Navbar -->
                 <nav class="absolute lg:top-[57px] lg:left-[57px] top-[45px] left-0 h-full bg-custom-green-500 lg:w-[305px] w-[230px] transform transition-transform duration-300 ease-in-out z-40 -translate-x-full shadow-2xl" id="navbar">
                     <div class="container mx-auto flex flex-col h-full">
@@ -70,14 +72,14 @@
                 </nav>
 
             <!-- Main Content -->
-                <div class="absolute top-0 left-0 w-[57px] h-full bg-custom-green-700 lg:flex hidden items-center flex-col pt-3 z-50">
+                <div class="fixed top-0 left-0 w-[57px] h-full bg-custom-green-700 lg:flex hidden items-center flex-col pt-3 z-50">
                     <button id="menu-toggle" class="menu-toggle bg-transparent lg:block hidden">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="#FFFFFF" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-white">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                         </svg>
                     </button>           
                 </div>
-                <div class="absolute top-0 left-0 w-full lg:h-[57px] h-[45px] bg-custom-green-700 flex items-center justify-start gap-5 lg:gap-0 lg:p-0 pl-5">
+                <div class="fixed top-0 left-0 w-full lg:h-[57px] h-[45px] bg-custom-green-700 flex items-center justify-start gap-5 lg:gap-0 lg:p-0 pl-5">
                     <button id="menu-toggle" class="menu-toggle lg:hidden block bg-transparent">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="#FFFFFF" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-white">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
