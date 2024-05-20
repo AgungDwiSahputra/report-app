@@ -7,7 +7,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'custom-green': '#4B903A',
+        'custom-green-500': '#4B903A',
+        'custom-green-600': '#32841e',
+        'custom-green-700': '#3D6B31',
       },
       fontFamily: {
         sans: ['Ubuntu', 'sans-serif'],
