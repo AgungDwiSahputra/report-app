@@ -15,7 +15,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [PageController::class, 'login'])->name('index');
-Route::get('/login', [PageController::class, 'login'])->name('login.index');
+Route::get('/login', [PageController::class, 'login'])->name('page.login');
+Route::get('/forgot-password', [PageController::class, 'forgot_password'])->name('page.forgot-password');
+Route::get('/change-password', [PageController::class, 'change_password'])->name('page.change-password');
 
 Route::get('/page/profile', [PageController::class, 'profile'])->name('page.profile');
 Route::get('/page/create-report', [PageController::class, 'create_report'])->name('page.create-report');
