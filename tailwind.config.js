@@ -6,6 +6,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      flex: {
+       '100': '0 0 100px',
+      },
       boxShadow: {
         custom: '1px 4px 10px 10px rgba(0, 0, 0, 0.05)',
       },
