@@ -40,8 +40,8 @@
                                 </svg>
                             </a>
                             <ul id="collaps-laporan" class="text-white hidden">
-                                <li class="list-navbar hover:bg-custom-green-700 {{ $page == 'create-report' ? 'bg-custom-green-700' : '' }}"><a href="{{ route('page.create-report') }}" class="block h-full w-full py-4 pl-11 pr-7">Buat Laporan</a></li>
-                                <li class="list-navbar hover:bg-custom-green-700 {{ $page == 'show-report' ? 'bg-custom-green-700' : '' }}"><a href="{{ route('page.show-report') }}" class="block h-full w-full py-4 pl-11 pr-7">Lihat & Verifikasi</a></li>
+                                <li class="list-navbar hover:bg-custom-green-700 {{ $page == 'create-report' ? 'bg-custom-green-700' : '' }}"><a href="{{ route('report.index') }}" class="block h-full w-full py-4 pl-11 pr-7">Buat Laporan</a></li>
+                                <li class="list-navbar hover:bg-custom-green-700 {{ $page == 'show-report' ? 'bg-custom-green-700' : '' }}"><a href="{{ route('report.show-index') }}" class="block h-full w-full py-4 pl-11 pr-7">Lihat & Verifikasi</a></li>
                                 <li class="list-navbar hover:bg-custom-green-700 {{ $page == 'show-other-document-report' ? 'bg-custom-green-700' : '' }}"><a href="{{ route('page.show-other-document-report') }}" class="block h-full w-full py-4 pl-11 pr-7">Kelengkapan Dokumen</a></li>
                             </ul>
                         </li>
@@ -102,7 +102,7 @@
                     </svg>
                 </button>
 
-                <h1 class="text-lg font-bold text-white lg:ml-[70px]" id="text-navbar">{{ $namePage }}</h1>
+                <h1 class="text-lg font-bold text-white lg:ml-[70px]" id="text-navbar">{{ isset($namePage) ? $namePage : '' }}</h1>
             </div>
 
             {{-- Content --}}

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,10 +20,14 @@ Route::get('/login', [PageController::class, 'login'])->name('page.login');
 Route::get('/forgot-password', [PageController::class, 'forgot_password'])->name('page.forgot-password');
 Route::get('/change-password', [PageController::class, 'change_password'])->name('page.change-password');
 
+// Report
 Route::get('/page/profile', [PageController::class, 'profile'])->name('page.profile');
-Route::get('/page/create-report', [PageController::class, 'create_report'])->name('page.create-report');
-Route::get('/page/show-report', [PageController::class, 'show_report'])->name('page.show-report');
+Route::resource('/page/report', ReportController::class);
+Route::get('/page/report/{report}/document', [ReportController::class, 'add_document'])->name('report.add_document');
+Route::get('/page/show-index', [ReportController::class, 'show_index'])->name('report.show-index');
 Route::get('/page/show-other-document-report', [PageController::class, 'show_other_document_report'])->name('page.show-other-document-report');
+
+// Letter
 Route::get('/page/create-letter', [PageController::class, 'create_letter'])->name('page.create-letter');
 Route::get('/page/show-letter', [PageController::class, 'show_letter'])->name('page.show-letter');
 Route::get('/page/show-other-document-letter', [PageController::class, 'show_other_document_letter'])->name('page.show-other-document-letter');
