@@ -14,7 +14,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
         <!-- Preload -->
-        <link rel="preload" href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" as="font" type="font/ttf" crossorigin="anonymous">
+        <link rel="preload" href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" as="font" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
 
         <!-- Style -->
@@ -66,7 +66,7 @@
                                 </svg>
                             </a>
                             <ul id="collaps-anggota" class="text-white hidden">
-                                <li class="list-navbar hover:bg-custom-green-700 {{ $page == 'list-anggota' ? 'bg-custom-green-700' : '' }}"><a href="{{ route('page.list-anggota') }}" class="block h-full w-full py-4 pl-11 pr-7">Daftar Anggota</a></li>
+                                <li class="list-navbar hover:bg-custom-green-700 {{ $page == 'list-anggota' ? 'bg-custom-green-700' : '' }}"><a href="{{ route('list-anggota.index') }}" class="block h-full w-full py-4 pl-11 pr-7">Daftar Anggota</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -77,12 +77,16 @@
                             </svg>
                             <span class="text-white font-bold">Bantuan</span>
                         </a>
-                        <a href="#" class="flex items-center justify-start gap-1">
+                        <a href="javascript:void(0)" onclick="submitForm()" class="flex items-center justify-start gap-1">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FFFFFF" class="w-6 h-6 text-white">
                                 <path fill-rule="evenodd" d="M12 2.25a.75.75 0 0 1 .75.75v9a.75.75 0 0 1-1.5 0V3a.75.75 0 0 1 .75-.75ZM6.166 5.106a.75.75 0 0 1 0 1.06 8.25 8.25 0 1 0 11.668 0 .75.75 0 1 1 1.06-1.06c3.808 3.807 3.808 9.98 0 13.788-3.807 3.808-9.98 3.808-13.788 0-3.808-3.807-3.808-9.98 0-13.788a.75.75 0 0 1 1.06 0Z" clip-rule="evenodd" />
                             </svg>
                             <span class="text-white font-bold">Keluar</span>
                         </a>
+                        <form id="logout-form" action="{{ route('post.logout') }}" method="POST" hidden>
+                            @csrf
+                            <button type="submit">submit</button>
+                        </form>
                     </div>
                 </div>
             </nav>
@@ -116,6 +120,60 @@
 
         <!-- Script -->
         <script src="{{ asset('js/app.js') }}"></script>
+
+        <script>
+            function submitForm() {
+                $('#logout-form').submit();
+            }
+        </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                @if ($errors->any())
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Terdapat Kesalahan',
+                        html: `
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        `,
+                        customClass: {
+                            confirmButton: 'btn-custom'
+                        },
+                        buttonsStyling: false
+                    });
+                @endif
+    
+                @if (session('success'))
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil',
+                        text: '{{ session('success') }}',
+                        customClass: {
+                            confirmButton: 'btn-custom'
+                        },
+                        buttonsStyling: false
+                    });
+                @endif
+    
+                @if (session('error'))
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Terdapat Kesalahan',
+                        text: '{{ session('error') }}',
+                        customClass: {
+                            confirmButton: 'btn-custom'
+                        },
+                        buttonsStyling: false
+                    });
+                @endif
+            });
+        </script>
 
         <!-- Script dari penggunaan template -->
         @stack('script')

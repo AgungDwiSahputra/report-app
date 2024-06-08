@@ -2,35 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pengguna;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
-    // Function Custom
-    // Fungsi untuk mengubah text random menjadi bentuk huruf aja dan kasih simbol penghubung jika ada spasi
-    public function filterText($text)
-    {
-        // Hanya menyimpan huruf dan spasi
-        $filteredText = preg_replace('/[^a-zA-Z\s-]/', '', $text);
-
-        // Mengganti spasi dengan tanda hubung
-        $filteredText = preg_replace('/\s+/', '-', $filteredText);
-
-        return $filteredText;
-    }
-
-    // Fungsi untuk mengubah kebab-case menjadi Title Case
-    public function kebabToTitleCase($text)
-    {
-        // Ganti tanda hubung dengan spasi
-        $text = str_replace('-', ' ', $text);
-        // Ubah menjadi Title Case
-        $text = ucwords($text);
-
-        return $text;
-    }
-    // End Function Custom
-
     public function login()
     {
         return view('login');
@@ -54,7 +30,7 @@ class PageController extends Controller
         return view('forgot-password', $data);
     }
 
-    public function change_password(Request $request)
+    public function change_password(Request $request, $id)
     {
         // Mendapatkan URL saat ini
         $currentUrl = $request->path();
@@ -63,10 +39,14 @@ class PageController extends Controller
         $page = last(explode('/', $currentUrl));
         $namePage = $this->kebabToTitleCase($page);
 
+        $pengguna = Pengguna::where('id', $id)->first();
+
         $data = [
             'title' => 'SIKOM1416 | ' . $namePage,
             'page' => $page,
-            'namePage' => $namePage,
+            // 'namePage' => $namePage,
+
+            'pengguna' => $pengguna,
         ];
 
         return view('change-password', $data);
@@ -202,21 +182,4 @@ class PageController extends Controller
     }
     // End Surat
 
-    public function list_anggota(Request $request, $page = null)
-    {
-        // Mendapatkan URL saat ini
-        $currentUrl = $request->path();
-
-        // Memproses bagian URL yang diinginkan, misalnya, mengambil segmen terakhir
-        $page = last(explode('/', $currentUrl));
-        $namePage = $this->kebabToTitleCase($page);
-
-        $data = [
-            'title' => 'SIKOM1416 | ' . $namePage,
-            'page' => $page,
-            'namePage' => $namePage,
-        ];
-
-        return view('page.list-anggota', $data);
-    }
 }

@@ -26,15 +26,16 @@
                     <img class="w-[120px] h-[auto] lg:hidden md:hidden sm:hidden block" loading="eager" src="{{ asset('images/logo/logo.png') }}" alt="Logo Kesatria Pantang Menyerah">
                     <h1 class="text-3xl font-bold text-white mb-5 text-center">Welcome <br>to SIKOM1416 !</h1>
                     <div class="lg:w-[439px] sm:w-[90%] h-[auto] bg-white rounded-2xl py-14 px-8">
-                        <form action="" method="POST" id="login-form">
+                        <form action="{{ route('post.login') }}" method="POST" id="login-form">
+                            @csrf
                             <!-- Input Text -->
                             <div class="mb-2">
-                                <input placeholder="Username" type="text" name="username" id="text-input" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500 sm:text-md">
+                                <input value="{{ old('NRP') }}" placeholder="NRP" type="number" name="NRP" id="text-input" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500 sm:text-md">
                             </div>
 
                             <!-- Input Password -->
                             <div class="mb-2">
-                                <input placeholder="Password" type="password" name="password" id="password-input" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500 sm:text-md">
+                                <input value="{{ old('kata_sandi') }}" placeholder="Kata Sandi" type="password" name="kata_sandi" id="password-input" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500 sm:text-md">
                             </div>
 
                             <div class="mb-14 flex items-center justify-between">
@@ -61,6 +62,57 @@
                 </div>
             </div>
         </div>
+
+        <!-- Jquery -->
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                @if ($errors->any())
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Terdapat Kesalahan',
+                        html: `
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        `,
+                        customClass: {
+                            confirmButton: 'btn-custom'
+                        },
+                        buttonsStyling: false
+                    });
+                @endif
+    
+                @if (session('success'))
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil',
+                        text: '{{ session('success') }}',
+                        customClass: {
+                            confirmButton: 'btn-custom'
+                        },
+                        buttonsStyling: false
+                    });
+                @endif
+    
+                @if (session('error'))
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Terdapat Kesalahan',
+                        text: '{{ session('error') }}',
+                        customClass: {
+                            confirmButton: 'btn-custom'
+                        },
+                        buttonsStyling: false
+                    });
+                @endif
+            });
+        </script>
     </body>
 
 </html>
