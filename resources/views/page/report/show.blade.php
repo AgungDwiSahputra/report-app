@@ -281,11 +281,51 @@
                 <button type="menu" data-target="#validasi-tab" class="tab w-full px-4 py-2 bg-custom-green-500 text-white font-bold shadow-sm hover:bg-[#1d4b13] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#3F6137]">Validasi</button>
             </div>
             <div id="lampiran-tab" class="tab-target">
-                INI LAMPIRAN
             </div>
             <div id="validasi-tab" class="tab-target" hidden>
-                INI VALIDASI
+                <button type="button" onclick="submitEditLampiran()" class="btn-custom mt-3">Simpan</button>
             </div>
+            <form action="" method="POST" id="edit-lapiran">
+                <table id="table-list-laporan" class="w-full table-auto display">
+                    <thead class="bg-custom-green-600 text-white">
+                        <tr>
+                            <th>No. Laporan</th>
+                            <th>Tindakan</th>
+                            <th>Tipe Laporan</th>
+                            <th class="w-2/4">Lampiran</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                <a href="javascript:void(0);" onclick="editLampiran(0)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mx-auto">
+                                        <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
+                                        <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
+                                    </svg>                                  
+                                </a>
+                            </td>
+                            <td>Lorem, ipsum dolor.</td>
+                            <td id="lampiran-0" class="w-2/4">Percobaan.jpg</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>
+                                <a href="javascript:void(0);" onclick="editLampiran(1)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mx-auto">
+                                        <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
+                                        <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
+                                    </svg>                                  
+                                </a>                                 
+                            </td>
+                            <td>Lorem, ipsum dolor.</td>
+                            <td id="lampiran-1" class="w-2/4">Percobaan.jpg</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button type="submit" id="submitEditLampiran" hidden>Edit</button>
+            </form>
         </div>
     </div>
 @endsection
@@ -315,5 +355,37 @@
                 $('.tab-target' + target).removeAttr('hidden')
             }
         })
+    </script>
+
+    <script type="text/javascript">
+        // Update file name pada inputan file
+        function updateFileName(index) {
+            const $input = $('#file-' + index);
+            const $fileNameSpan = $('#file-name-' + index);
+            $fileNameSpan.text($input[0].files.length > 0 ? $input[0].files[0].name : 'Tidak ada file yang dipilih');
+        }
+
+        // Edit Lampiran
+        function editLampiran(id) {
+            const newLabel = $('<label></label>')
+                    .attr('for', `file-${id}`)
+                    .addClass('file-label')
+                    .text('Unggah File');
+
+            const newInput = $('<input>')
+                .attr('type', 'file')
+                .attr('id', `file-${id}`)
+                .attr('name', `lampiran-${id}`)
+                .addClass('file-input')
+                .attr('onchange', `updateFileName(${id})`);
+
+            const newFileNameSpan = $('<span></span>')
+                .attr('id', `file-name-${id}`)
+                .addClass('file-name')
+                .text('Tidak ada file yang dipilih');
+
+            $(`#lampiran-${id}`).html('');
+            $(`#lampiran-${id}`).append(newLabel, newInput, newFileNameSpan);
+        }
     </script>
 @endpush

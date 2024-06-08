@@ -127,23 +127,23 @@ class PageController extends Controller
     //     return view('page.show-report', $data);
     // }
 
-    public function show_other_document_report(Request $request, $page = null)
-    {
-        // Mendapatkan URL saat ini
-        $currentUrl = $request->path();
+    // public function show_other_document_report(Request $request, $page = null)
+    // {
+    //     // Mendapatkan URL saat ini
+    //     $currentUrl = $request->path();
 
-        // Memproses bagian URL yang diinginkan, misalnya, mengambil segmen terakhir
-        $page = last(explode('/', $currentUrl));
-        $namePage = $this->kebabToTitleCase($page);
+    //     // Memproses bagian URL yang diinginkan, misalnya, mengambil segmen terakhir
+    //     $page = last(explode('/', $currentUrl));
+    //     $namePage = $this->kebabToTitleCase($page);
 
-        $data = [
-            'title' => 'SIKOM1416 | ' . $namePage,
-            'page' => $page,
-            'namePage' => $namePage,
-        ];
+    //     $data = [
+    //         'title' => 'SIKOM1416 | ' . $namePage,
+    //         'page' => $page,
+    //         'namePage' => $namePage,
+    //     ];
 
-        return view('page.show-other-report', $data);
-    }
+    //     return view('page.show-other-report', $data);
+    // }
     // End Laporan
 
     // Surat

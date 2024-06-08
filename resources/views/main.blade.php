@@ -42,7 +42,7 @@
                             <ul id="collaps-laporan" class="text-white hidden">
                                 <li class="list-navbar hover:bg-custom-green-700 {{ $page == 'create-report' ? 'bg-custom-green-700' : '' }}"><a href="{{ route('report.index') }}" class="block h-full w-full py-4 pl-11 pr-7">Buat Laporan</a></li>
                                 <li class="list-navbar hover:bg-custom-green-700 {{ $page == 'show-report' ? 'bg-custom-green-700' : '' }}"><a href="{{ route('report.show-index') }}" class="block h-full w-full py-4 pl-11 pr-7">Lihat & Verifikasi</a></li>
-                                <li class="list-navbar hover:bg-custom-green-700 {{ $page == 'show-other-document-report' ? 'bg-custom-green-700' : '' }}"><a href="{{ route('page.show-other-document-report') }}" class="block h-full w-full py-4 pl-11 pr-7">Kelengkapan Dokumen</a></li>
+                                <li class="list-navbar hover:bg-custom-green-700 {{ $page == 'show-other-document-report' ? 'bg-custom-green-700' : '' }}"><a href="{{ route('report.show-other-index') }}" class="block h-full w-full py-4 pl-11 pr-7">Kelengkapan Dokumen</a></li>
                             </ul>
                         </li>
                         <!-- Collaps Effect -->

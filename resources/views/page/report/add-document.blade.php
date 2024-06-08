@@ -17,7 +17,7 @@
         </div>
 
         <div class="p-8">
-            <form action="" method="POST" id="profile-form">
+            <form action="" method="POST" id="form-input">
                 <div class="grid grid-cols-1 gap-4" id="file-upload-form">
                     <span class="text-black text-xs font-bold block">* Lampiran berupa foto</span>
                     <div class="mb-4 flex items-center">

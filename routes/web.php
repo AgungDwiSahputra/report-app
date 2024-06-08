@@ -25,7 +25,8 @@ Route::get('/page/profile', [PageController::class, 'profile'])->name('page.prof
 Route::resource('/page/report', ReportController::class);
 Route::get('/page/report/{report}/document', [ReportController::class, 'add_document'])->name('report.add_document');
 Route::get('/page/show-index', [ReportController::class, 'show_index'])->name('report.show-index');
-Route::get('/page/show-other-document-report', [PageController::class, 'show_other_document_report'])->name('page.show-other-document-report');
+Route::get('/page/show-other-index', [ReportController::class, 'show_other_index'])->name('report.show-other-index');
+Route::get('/page/show-other-index/{report}/document', [ReportController::class, 'other_document_completion'])->name('report.other-document-completion');
 
 // Letter
 Route::get('/page/create-letter', [PageController::class, 'create_letter'])->name('page.create-letter');

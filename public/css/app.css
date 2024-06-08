@@ -649,6 +649,10 @@ video {
   margin-right: auto;
 }
 
+.-ml-9 {
+  margin-left: -2.25rem;
+}
+
 .mb-10 {
   margin-bottom: 2.5rem;
 }
@@ -685,6 +689,10 @@ video {
   margin-left: 100px;
 }
 
+.ml-\[10px\] {
+  margin-left: 10px;
+}
+
 .ml-auto {
   margin-left: auto;
 }
@@ -713,16 +721,16 @@ video {
   margin-top: 5rem;
 }
 
+.mt-3 {
+  margin-top: 0.75rem;
+}
+
 .mt-9 {
   margin-top: 2.25rem;
 }
 
 .mt-\[100px\] {
   margin-top: 100px;
-}
-
-.ml-\[10px\] {
-  margin-left: 10px;
 }
 
 .mt-\[55px\] {
@@ -802,6 +810,14 @@ video {
   width: 83.333333%;
 }
 
+.w-11\/12 {
+  width: 91.666667%;
+}
+
+.w-2\/4 {
+  width: 50%;
+}
+
 .w-4\/5 {
   width: 80%;
 }
@@ -856,10 +872,6 @@ video {
 
 .w-screen {
   width: 100vw;
-}
-
-.w-11\/12 {
-  width: 91.666667%;
 }
 
 .max-w-\[2500px\] {
@@ -1031,6 +1043,10 @@ video {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
+.p-4 {
+  padding: 1rem;
+}
+
 .p-5 {
   padding: 1.25rem;
 }
@@ -1177,6 +1193,12 @@ video {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
+.shadow-md {
+  --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
 .shadow-sm {
   --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
@@ -1235,7 +1257,7 @@ video {
 
 /* Custom styling to shift the arrow */
 
-form select {
+#form-input select {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -1374,11 +1396,6 @@ form select {
   border-color: rgb(75 144 58 / var(--tw-border-opacity));
 }
 
-.active\:bg-custom-green-600:active {
-  --tw-bg-opacity: 1;
-  background-color: rgb(50 132 30 / var(--tw-bg-opacity));
-}
-
 @media (min-width: 640px) {
   .sm\:hidden {
     display: none;
@@ -1444,12 +1461,12 @@ form select {
     grid-column: span 3 / span 3;
   }
 
-  .lg\:ml-\[70px\] {
-    margin-left: 70px;
-  }
-
   .lg\:ml-\[100px\] {
     margin-left: 100px;
+  }
+
+  .lg\:ml-\[70px\] {
+    margin-left: 70px;
   }
 
   .lg\:mt-\[100px\] {
@@ -1480,6 +1497,10 @@ form select {
     height: 100vh;
   }
 
+  .lg\:w-10\/12 {
+    width: 83.333333%;
+  }
+
   .lg\:w-\[286px\] {
     width: 286px;
   }
@@ -1490,10 +1511,6 @@ form select {
 
   .lg\:w-\[439px\] {
     width: 439px;
-  }
-
-  .lg\:w-10\/12 {
-    width: 83.333333%;
   }
 
   .lg\:grid-cols-2 {

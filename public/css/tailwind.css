@@ -35,7 +35,7 @@
 }
 
 /* Custom styling to shift the arrow */
-form select {
+#form-input select {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;

@@ -17,7 +17,7 @@
         </div>
 
         <div class="p-8">
-            <form action="" method="POST" id="profile-form">
+            <form action="" method="POST" id="form-input">
                 <div class="grid grid-cols-2 gap-4">
                     <!-- Dibuat Oleh -->
                     <div class="mb-2">

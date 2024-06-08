@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Barryvdh\DomPDF\PDF as DomPDFPDF;
 use Illuminate\Http\Request;
 
 class ReportController extends Controller
@@ -13,6 +14,19 @@ class ReportController extends Controller
      */
 
     // Function Custom
+    // Generating PDF
+    public function generateReport(Request $request)
+    {
+        // $data = $request->all();
+        
+        // $pdf = DomPDFPDF::loadView('page.template-document', $data);
+        $pdf = DomPDFPDF::loadView('page.template-document');
+        $filePath = storage_path('app/public/laporan/Laporan_Situasi_Harian.pdf');
+        $pdf->save($filePath);
+
+        return view('report-view', ['filePath' => $filePath]);
+    }
+
     // Fungsi untuk mengubah text random menjadi bentuk huruf aja dan kasih simbol penghubung jika ada spasi
     public function filterText($text)
     {
@@ -147,6 +161,42 @@ class ReportController extends Controller
         ];
 
         return view('page.report.show', $data);
+    }
+
+    public function show_other_index(Request $request)
+    {
+        // Mendapatkan URL saat ini
+        $currentUrl = $request->path();
+
+        // Memproses bagian URL yang diinginkan, misalnya, mengambil segmen terakhir
+        $page = last(explode('/', $currentUrl));
+        $namePage = $this->kebabToTitleCase($page);
+
+        $data = [
+            'title' => 'SIKOM1416 | ' . $namePage,
+            'page' => $page,
+            'namePage' => $namePage,
+        ];
+
+        return view('page.report.show-other-report', $data);
+    }
+
+    public function other_document_completion(Request $request)
+    {
+        // Mendapatkan URL saat ini
+        $currentUrl = $request->path();
+
+        // Memproses bagian URL yang diinginkan, misalnya, mengambil segmen terakhir
+        $page = last(explode('/', $currentUrl));
+        $namePage = $this->kebabToTitleCase($page);
+
+        $data = [
+            'title' => 'SIKOM1416 | ' . $namePage,
+            'page' => $page,
+            'namePage' => $namePage,
+        ];
+
+        return view('page.report.other-document-completion', $data);
     }
 
     /**
