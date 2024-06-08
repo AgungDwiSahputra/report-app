@@ -19,12 +19,8 @@ class LevelMiddleware
     {
         $user = Auth::user();
 
-        if (!$user) {
-            return redirect('page.login')->with('error', 'Kamu belum melakukan Login.');
-        }elseif(!in_array($user->level, $levels)){
-            return redirect('page.profile')->with('error', 'Kamu tidak memiliki akses ke halaman ini.');
-        }else{
-            return redirect('page.profile')->with('error', 'Kamu tidak memiliki akses ke halaman ini.');
+        if (!$user || !in_array($user->level, $levels)) {
+            return redirect()->route('page.profile')->with('error', 'Kamu tidak memiliki akses ke halaman ini.');
         }
 
         return $next($request);

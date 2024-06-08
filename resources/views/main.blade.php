@@ -46,29 +46,37 @@
                             </ul>
                         </li>
                         <!-- Collaps Effect -->
-                        <li class="menu-collaps cursor-pointer hover:bg-custom-green-600 {{ $page == 'create-letter' || $page == 'show-letter' || $page == 'show-other-document-letter' ? 'bg-custom-green-600' : '' }}" data-collaps="surat-pengajuan">
-                            <a href="javascript:void(0)" class="h-full w-full py-4 px-7 flex items-center justify-between">Surat Pengajuan
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
-                                    <path fill-rule="evenodd" d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z" clip-rule="evenodd" />
-                                </svg>
-                            </a>
-                            <ul id="collaps-surat-pengajuan" class="text-white hidden">
-                                <li class="list-navbar hover:bg-custom-green-700 {{ $page == 'create-letter' ? 'bg-custom-green-700' : '' }}"><a href="{{ route('page.create-letter') }}" class="block h-full w-full py-4 pl-11 pr-7">Buat Surat</a></li>
-                                <li class="list-navbar hover:bg-custom-green-700 {{ $page == 'show-letter' ? 'bg-custom-green-700' : '' }}"><a href="{{ route('page.show-letter') }}" class="block h-full w-full py-4 pl-11 pr-7">Lihat & Verifikasi</a></li>
-                                <li class="list-navbar hover:bg-custom-green-700 {{ $page == 'show-other-document-letter' ? 'bg-custom-green-700' : '' }}"><a href="{{ route('page.show-other-document-letter') }}" class="block h-full w-full py-4 pl-11 pr-7">Kelengkapan Dokumen</a></li>
-                            </ul>
-                        </li>
+                        @if(auth()->check())
+                            @if(auth()->user()->level == 'staf')
+                                <li class="menu-collaps cursor-pointer hover:bg-custom-green-600 {{ $page == 'create-letter' || $page == 'show-letter' || $page == 'show-other-document-letter' ? 'bg-custom-green-600' : '' }}" data-collaps="surat-pengajuan">
+                                    <a href="javascript:void(0)" class="h-full w-full py-4 px-7 flex items-center justify-between">Surat Pengajuan
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                            <path fill-rule="evenodd" d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z" clip-rule="evenodd" />
+                                        </svg>
+                                    </a>
+                                    <ul id="collaps-surat-pengajuan" class="text-white hidden">
+                                        <li class="list-navbar hover:bg-custom-green-700 {{ $page == 'create-letter' ? 'bg-custom-green-700' : '' }}"><a href="{{ route('page.create-letter') }}" class="block h-full w-full py-4 pl-11 pr-7">Buat Surat</a></li>
+                                        <li class="list-navbar hover:bg-custom-green-700 {{ $page == 'show-letter' ? 'bg-custom-green-700' : '' }}"><a href="{{ route('page.show-letter') }}" class="block h-full w-full py-4 pl-11 pr-7">Lihat & Verifikasi</a></li>
+                                        <li class="list-navbar hover:bg-custom-green-700 {{ $page == 'show-other-document-letter' ? 'bg-custom-green-700' : '' }}"><a href="{{ route('page.show-other-document-letter') }}" class="block h-full w-full py-4 pl-11 pr-7">Kelengkapan Dokumen</a></li>
+                                    </ul>
+                                </li>
+                            @endif
+                        @endif
                         <!-- Collaps Effect -->
-                        <li class="menu-collaps cursor-pointer hover:bg-custom-green-600 {{ $page == 'list-anggota' ? 'bg-custom-green-600' : '' }}" data-collaps="anggota">
-                            <a href="javascript:void(0)" class="h-full w-full py-4 px-7 flex items-center justify-between">Anggota
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
-                                    <path fill-rule="evenodd" d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z" clip-rule="evenodd" />
-                                </svg>
-                            </a>
-                            <ul id="collaps-anggota" class="text-white hidden">
-                                <li class="list-navbar hover:bg-custom-green-700 {{ $page == 'list-anggota' ? 'bg-custom-green-700' : '' }}"><a href="{{ route('list-anggota.index') }}" class="block h-full w-full py-4 pl-11 pr-7">Daftar Anggota</a></li>
-                            </ul>
-                        </li>
+                        @if(auth()->check())
+                            @if(auth()->user()->level == 'admin')
+                                <li class="menu-collaps cursor-pointer hover:bg-custom-green-600 {{ $page == 'list-anggota' ? 'bg-custom-green-600' : '' }}" data-collaps="anggota">
+                                    <a href="javascript:void(0)" class="h-full w-full py-4 px-7 flex items-center justify-between">Anggota
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                            <path fill-rule="evenodd" d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z" clip-rule="evenodd" />
+                                        </svg>
+                                    </a>
+                                    <ul id="collaps-anggota" class="text-white hidden">
+                                        <li class="list-navbar hover:bg-custom-green-700 {{ $page == 'list-anggota' ? 'bg-custom-green-700' : '' }}"><a href="{{ route('list-anggota.index') }}" class="block h-full w-full py-4 pl-11 pr-7">Daftar Anggota</a></li>
+                                    </ul>
+                                </li>
+                            @endif
+                        @endif
                     </ul>
                     <div class="flex items-start justify-between flex-row flex-100 px-5">
                         <a href="#" class="flex items-center justify-start gap-1">

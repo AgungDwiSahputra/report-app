@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Pengguna;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class AuthController extends Controller
 {
@@ -25,10 +27,79 @@ class AuthController extends Controller
         ];
 
         if (Auth::guard('web')->attempt($credentials)) {
-            return redirect()->intended('page.profile')->with('success', 'Berhasil Masuk.');
+            return redirect()->route('page.profile')->with('success', 'Berhasil Masuk.');
         }
 
         return redirect()->back()->with('error', 'NRP atau Kata Sandi salah.');   
+    }
+
+    public function update(Request $request, $id) 
+    {
+        $request->validate([
+            'nama' => 'required|string',
+            'kata_sandi' => 'required|string',
+            'nohp' => 'required',
+            'npwp' => 'required',
+            'nrp' => 'required',
+            'tanggal_lahir' => 'required',
+            'jabatan' => 'required',
+            'penempatan' => 'required',
+            'email' => 'required',
+            'image' => 'image|mimes:jpeg,png,jpg',
+        ],[
+            'nama.required' => 'Nama wajib diisi.',
+            'kata_sandi.required' => 'Kata Sandi wajib diisi.',
+            'nohp.required' => 'Nomor HP wajib diisi.',
+            'npwp.required' => 'NPWP wajib diisi.',
+            'nrp.required' => 'NRP wajib diisi.',
+            'tanggal_lahir.required' => 'Tanggal lahir wajib diisi.',
+            'jabatan.required' => 'Jabatan wajib diisi.',
+            'penempatan.required' => 'Penempatan wajib diisi.',
+            'email.required' => 'Email wajib diisi.',
+            'email.email' => 'Email harus berupa alamat email yang valid.',
+            'image.image' => 'File harus berupa gambar.',
+            'image.mimes' => 'Gambar harus berformat: jpeg, png, jpg.',
+        ]);
+
+        $nama = $this->filterText($request->nama);
+
+        $currentDate = Date::now();
+        $currentDay = $currentDate->day;
+        $currentMonth = $currentDate->month;
+        $currentYear = $currentDate->year;
+        $currentHour = $currentDate->hour;
+        $currentMinute = $currentDate->minute;
+        $currentSecond = $currentDate->second;
+        $dateTime = $currentYear.$currentMonth.$currentDay.$currentHour.$currentMinute.$currentSecond;
+
+        $pengguna = Pengguna::findOrFail($id);
+        $pengguna->nama_lengkap = $request->nama;
+        // $pengguna->kata_sandi = Hash::make($request->kata_sandi);
+        $pengguna->email = $request->email;
+        $pengguna->no_telp = $request->nohp;
+        $pengguna->NPWP = $request->npwp;
+        $pengguna->NRP = $request->nrp;
+        $pengguna->tgl_lahir = $request->tanggal_lahir;
+        $pengguna->jabatan = $request->jabatan;
+        $pengguna->penempatan = $request->penempatan;
+        $pengguna->level = $request->level;
+
+        if ($request->hasFile('image')) {
+            // Hapus gambar lama jika ada
+            if ($pengguna->foto_profil && $pengguna->foto_profil != '-') {
+                Storage::disk('public')->delete('images/profile/' . $pengguna->foto_profil);
+            }
+    
+            // Simpan gambar baru
+            $image = $request->file('image');
+            $imageName = $nama . '-' . $dateTime . '.' . $image->getClientOriginalExtension();
+            $image->storeAs('images/profile', $imageName, 'public');
+            $pengguna->foto_profil = $imageName;
+        }
+
+        $pengguna->save();
+
+        return redirect()->back()->with('success', 'Pengguna Berhasil Dirubah.');    
     }
     
     public function change_password(Request $request, $id)

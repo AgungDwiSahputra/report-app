@@ -61,10 +61,15 @@ class PageController extends Controller
         $page = last(explode('/', $currentUrl));
         $namePage = $this->kebabToTitleCase($page);
 
+        $user = auth()->user();
+
         $data = [
             'title' => 'SIKOM1416 | ' . $namePage,
             'page' => $page,
             'namePage' => $namePage,
+
+            // Data Tambahan
+            'user' => $user,
         ];
 
         return view('page.profile', $data);

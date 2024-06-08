@@ -17,7 +17,13 @@
     <div class="w-full h-full lg:pt-[85px] lg:pl-[85px] lg:pr-6 lg:pb-6 p-5 pt-14">
         <div class="grid grid-cols-1 mb-8">
             <div class="relative hover-effect rounded-full mx-auto">
-                <img id="user-image" src="{{ Storage::url('images/profile/' . $pengguna->foto_profil) }}" alt="User Icon" class="lg:w-[286px] lg:h-[286px] w-52 h-52 rounded-full object-cover">
+                @php
+                    $image = Storage::url('images/profile/user.png');
+                    if($pengguna->foto_profil != '-'){
+                        $image = Storage::url('images/profile/' . $pengguna->foto_profil);
+                    }   
+                @endphp
+                <img id="user-image" src="{{ $image }}" alt="User Icon" class="lg:w-[286px] lg:h-[286px] w-52 h-52 rounded-full object-cover">
                 <div class="absolute inset-0 flex items-center justify-center overlay rounded-full">
                     <span class="text-white text-sm">Ubah Gambar</span>
                 </div>
@@ -25,7 +31,8 @@
             </div>
         </div>
         <div>
-            <form action="{{ route('list-anggota.store') }}" method="POST" id="form-input" class="md:grid lg:grid-cols-3 md:grid-cols-2 md:gap-4" enctype="multipart/form-data">
+            <form action="{{ route('list-anggota.update', $pengguna->id) }}" method="POST" id="form-input" class="md:grid lg:grid-cols-3 md:grid-cols-2 md:gap-4" enctype="multipart/form-data">
+                @method('PUT')
                 @csrf
                 <!-- Image -->
                 <input value="{{ old('image', $pengguna->foto_profil) }}" type="file" name="image" id="file-input-hidden" class="hidden">
@@ -45,7 +52,7 @@
                 </div>
 
                 <!-- Kata Sandi -->
-                {{-- <div class="mb-2">
+                <div class="mb-2" hidden>
                     <label for="kata-sandi" class="text-black text-sm font-bold">Kata Sandi</label>
                     <div class="flex items-center border border-gray-300 rounded-lg overflow-hidden focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500">
                         <span class="inline-flex items-center px-3 border-r-1 border-solid border-gray-300">
@@ -56,7 +63,7 @@
                         </span>
                         <input value="{{ old('kata_sandi', $pengguna->kata_sandi) }}" required placeholder="Kata Sandi" type="text" name="kata_sandi" id="kata-sandi" class="w-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500 sm:text-md">
                     </div>
-                </div> --}}
+                </div>
 
                 <!-- Nomor Telepon -->
                 <div class="mb-2">
@@ -177,6 +184,7 @@
                             <option value="danramil" {{ old('level', $pengguna->level) == 'danramil' ? 'selected' : '' }}>Danramil</option>
                             <option value="dandim" {{ old('level', $pengguna->level) == 'dandim' ? 'selected' : '' }}>Dandim</option>
                             <option value="staf" {{ old('level', $pengguna->level) == 'staf' ? 'selected' : '' }}>Staf</option>
+                            <option value="admin" {{ old('level', $pengguna->level) == 'admin' ? 'selected' : '' }}>Admin</option>
                         </select>
                     </div>
                 </div>
