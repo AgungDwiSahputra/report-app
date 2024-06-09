@@ -25,7 +25,14 @@ class ListAnggotaController extends Controller
         $page = last(explode('/', $currentUrl));
         $namePage = $this->kebabToTitleCase($page);
 
-        $pengguna = Pengguna::where('level', '!=', 'admin')->get();
+        $user = auth()->user();
+        $pengguna = Pengguna::where('level', '!=', 'admin')->where('id', '!=', $user->id);
+
+        if (in_array($user->level, ['babinsa', 'danramil', 'dandim', 'staf'])) {
+            $pengguna->where('level', $user->level);
+        }
+
+        $pengguna = $pengguna->get();
 
         $data = [
             'title' => 'SIKOM1416 | ' . $namePage,
@@ -46,6 +53,9 @@ class ListAnggotaController extends Controller
      */
     public function create(Request $request)
     {
+        if(auth()->user()->level != 'admin'){
+            return redirect()->route('list-anggota.index')->with('error', 'Kamu tidak memiliki akses ke halaman ini.');
+        }
         // Mendapatkan URL saat ini
         $currentUrl = $request->path();
 
@@ -70,6 +80,10 @@ class ListAnggotaController extends Controller
      */
     public function store(Request $request)
     {
+        if(auth()->user()->level != 'admin'){
+            return redirect()->route('list-anggota.index')->with('error', 'Kamu tidak memiliki akses ke halaman ini.');
+        }
+
         $request->validate([
             'nama' => 'required|string',
             'kata_sandi' => 'required|string',
@@ -141,9 +155,27 @@ class ListAnggotaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        //
+        // Mendapatkan URL saat ini
+        $currentUrl = $request->path();
+
+        // Memproses bagian URL yang diinginkan, misalnya, mengambil segmen terakhir
+        $page = last(explode('/', $currentUrl));
+        $namePage = $this->kebabToTitleCase($page);
+
+        $pengguna = Pengguna::where('id', $id)->first();
+
+        $data = [
+            'title' => 'SIKOM1416 | ' . $namePage,
+            'page' => $page,
+            // 'namePage' => $namePage,
+
+            // Data Tambahan
+            'pengguna' => $pengguna,
+        ];
+
+        return view('page.list_anggota.show', $data);
     }
 
     /**
@@ -154,6 +186,10 @@ class ListAnggotaController extends Controller
      */
     public function edit(Request $request, $id)
     {
+        if(auth()->user()->level != 'admin'){
+            return redirect()->route('list-anggota.index')->with('error', 'Kamu tidak memiliki akses ke halaman ini.');
+        }
+
         // Mendapatkan URL saat ini
         $currentUrl = $request->path();
 
@@ -184,6 +220,10 @@ class ListAnggotaController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if(auth()->user()->level != 'admin'){
+            return redirect()->route('list-anggota.index')->with('error', 'Kamu tidak memiliki akses ke halaman ini.');
+        }
+        
         $request->validate([
             'nama' => 'required|string',
             'kata_sandi' => 'required|string',

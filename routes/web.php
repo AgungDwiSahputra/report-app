@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/change-password/{id_pengguna}/process', [AuthController::class, 'change_password'])->name('post.change-password');
     Route::get('/page/profile', [PageController::class, 'profile'])->name('page.profile');
     Route::PUT('/page/profile/{id}', [AuthController::class, 'update'])->name('post.profile');
+    Route::resource('/page/list-anggota', ListAnggotaController::class);
 });
 
 // Report (level : babinsa dan danramil)
@@ -45,8 +46,4 @@ Route::middleware(['auth', 'level:staf'])->group(function () {
     Route::get('/page/create-letter', [PageController::class, 'create_letter'])->name('page.create-letter');
     Route::get('/page/show-letter', [PageController::class, 'show_letter'])->name('page.show-letter');
     Route::get('/page/show-other-document-letter', [PageController::class, 'show_other_document_letter'])->name('page.show-other-document-letter');
-});
-
-Route::middleware(['auth', 'level:admin'])->group(function () {
-    Route::resource('/page/list-anggota', ListAnggotaController::class);
 });

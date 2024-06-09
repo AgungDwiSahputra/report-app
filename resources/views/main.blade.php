@@ -64,7 +64,7 @@
                         @endif
                         <!-- Collaps Effect -->
                         @if(auth()->check())
-                            @if(auth()->user()->level == 'admin')
+                            {{-- @if(auth()->user()->level == 'admin') --}}
                                 <li class="menu-collaps cursor-pointer hover:bg-custom-green-600 {{ $page == 'list-anggota' ? 'bg-custom-green-600' : '' }}" data-collaps="anggota">
                                     <a href="javascript:void(0)" class="h-full w-full py-4 px-7 flex items-center justify-between">Anggota
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
@@ -75,7 +75,7 @@
                                         <li class="list-navbar hover:bg-custom-green-700 {{ $page == 'list-anggota' ? 'bg-custom-green-700' : '' }}"><a href="{{ route('list-anggota.index') }}" class="block h-full w-full py-4 pl-11 pr-7">Daftar Anggota</a></li>
                                     </ul>
                                 </li>
-                            @endif
+                            {{-- @endif --}}
                         @endif
                     </ul>
                     <div class="flex items-start justify-between flex-row flex-100 px-5">
