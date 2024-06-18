@@ -1,90 +1,109 @@
 
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html>
 
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>{{ isset($title) ? $title : 'SIKOM1416' }}</title>
-
-        <link rel="shortcut icon" href="{{ asset('images/logo/logo.png') }}" type="image/x-icon">
-
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-        <!-- Preload -->
-        <link rel="preload" href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" as="font" type="font/ttf" crossorigin="anonymous">
-        <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
-
-        <!-- Style -->
-        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-
-        <!-- Style dari penggunaan template -->
-        @stack('style')
+        <style>
+            @font-face {
+                font-family: 'Ubuntu';
+                src: url('{{ storage_path('fonts/Ubuntu-Regular.ttf') }}') format('truetype');
+                font-weight: normal;
+                font-style: normal;
+            }
+            @font-face {
+                font-family: 'Ubuntu';
+                src: url('{{ storage_path('fonts/Ubuntu-Bold.ttf') }}') format('truetype');
+                font-weight: bold;
+                font-style: normal;
+            }
+            @font-face {
+                font-family: 'Ubuntu';
+                src: url('{{ storage_path('fonts/Ubuntu-Italic.ttf') }}') format('truetype');
+                font-weight: normal;
+                font-style: italic;
+            }
+            @font-face {
+                font-family: 'Ubuntu';
+                src: url('{{ storage_path('fonts/Ubuntu-BoldItalic.ttf') }}') format('truetype');
+                font-weight: bold;
+                font-style: italic;
+            }
+            body {
+                font-family: 'Ubuntu', sans-serif;
+            }
+            span{
+                display: block;
+            }
+        </style>
     </head>
 
     <body class="overflow-x-hidden">
         <div class="text-center mb-5">
-            <h1>KOMANDO DISTRIK MILITER 1416/MUNA</h1>
-            <h2>KOMANDO RAYON MILITER 1416-06/LAWA</h2>
-            <h3>LAPORAN SITUASI HARIAN</h3>
-            <p>Nomor: RU/LSH/2024/Babinsa Koramil 1416-06/LAWA</p>
-            <p>PEMANTAUAN WILAYAH KORAMIL 1416-06/LAWA</p>
-            <p>TWP. 15.00 WIB. 19 MEI 2024</p>
+            <span style="text-align:left">KOMANDO DISTRIK MILITER 1416/MUNA</span>
+            <span style="text-align:left;text-decoration:underline;">KOMANDO RAYON MILITER 1416-06/LAWA</span>
+            <br><br><br>
+            <center>
+                <span>LAPORAN SITUASI HARIAN</span>
+                <span>Nomor: RU/LSH/{{ date('Y') }}/{{ $data->pembuat->jabatan . " " . $data->wilayah_asal }}</span>
+                <br>
+                <span>PEMANTAUAN WILAYAH {{ $data->wilayah_asal }}</span>
+                <span>TWP. {{ $data->laporan->waktu_buat }} WITA. {{ $data->laporan->tanggal_buat }}</span>
+            </center>
+        </div>
+        <br>
+        <div style="margin-bottom: 8px;">
+            <span>Yth. {{ $data->penerima->nama_lengkap }}</span>
+            <span>Dari {{ $data->pembuat->nama_lengkap }}</span>
         </div>
 
-        <div class="mb-5">
-            <p>Yth. Dandim 1416/Muna</p>
-            <p>Dari Danramil 1416-06/Lawa</p>
+        <div style="margin-bottom: 8px;">
+            <span>Ijin melaporkan</span>
+            <ol type="1" style="margin-top: 0 !important;">
+                <li>Perkembangan Situasi Wilayah {{ $data->laporan->wilayah_asal }} pada Hari Senin, {{ $data->laporan->tanggal_buat }}, Pukul {{ $data->laporan->waktu_buat }} WITA dalam keadaan aman terkendali.</li>
+                <li>Hal-Hal Menonjol : {{ $data->hal_menonjol }}</li>
+                <li>Cuaca : {{ $data->cuaca }}</li>
+                @if(auth()->user()->level != 'babinsa')
+                    <li>Jumlah Personil : {{ $data->jml_personil }}</li>
+                    <li>Personil Hadir : {{ $data->personil_hadir }}</li>
+                    <li>Personil Kurang : {{ $data->personil_kurang }}</li>
+                @endif
+            </ol>
         </div>
 
-        <div class="mb-5">
-            <p>Ijin melaporkan</p>
-            <p>Perkembangan Situasi Wilayah Koramil 1416-06/Lawa pada Hari Senin, 19 Mei 2024, Pukul 15.00 WITA dalam keadaan aman terkendali.</p>
-            <p>1. Hal-hal menonjol : {{ $situasi }}</p>
-            <p>2. Cuaca : {{ $cuaca }}</p>
-            <p>3. Jumlah Personil : {{ $jumlah_personil }}</p>
-            <p>4. Personil Hadir : {{ $personil_hadir }}</p>
-            <p>5. Personil Kurang : {{ $personil_kurang }}</p>
+        <div style="margin-bottom: 8px;">
+            <span>Keterangan</span>
+            <ol type="1" style="margin-top: 0 !important;">
+                @if(auth()->user()->level != 'babinsa')
+                    <li>Dinas Dalam : {{ $data->dinas_dalam }}</li>
+                    <li>Dinas Luar : {{ $data->dinas_luar }}</li>
+                    <li>Piket Koramil : {{ $data->piket_pos }}</li>
+                @endif
+                <li>Materil : {{ $data->materil }}</li>
+            </ol>
         </div>
 
-        <div class="mb-5">
-            <p>Keterangan</p>
-            <p>1. Dinas Dalam</p>
-            <p>2. Dinas Luar</p>
-            <p>3. Piket Koramil</p>
-            <p>4. Materil</p>
+        <div style="margin-bottom: 8px;">
+            <span>Kegiatan Hari Ini</span>
+            <ol type="1" style="margin-top: 0 !important;">
+                @foreach(explode(';', $data->deskripsi) as $key => $kegiatan)
+                    <li>{{ $kegiatan }}</li>
+                @endforeach
+            </ol>
         </div>
 
-        <div class="mb-5">
-            <p>Kegiatan Hari Ini</p>
-            <p>1. Xxx</p>
-            <p>2. Xxx</p>
-            <p>3. Xxx</p>
+        <div style="margin-bottom: 8px;">
+            <span>Demikian kami laporkan.</span>
+            <span>Dokumen terlampir.</span>
         </div>
 
-        <div class="mb-5">
-            <p>Demikian kami laporkan.</p>
-            <p>Dokumen terlampir.</p>
+        <div style="margin-bottom: 8px;">
+            <span>Tembusan</span>
+            <ol type="1" style="margin-top: 0 !important;">
+                @foreach(explode(';', $data->tembusan) as $key => $kegiatan)
+                    <li>{{ $kegiatan }}</li>
+                @endforeach
+            </ol>
         </div>
-
-        <div class="mb-5">
-            <p>Tembusan</p>
-            <p>1. Xxx</p>
-            <p>2. Xxx</p>
-            <p>3. Xxx</p>
-        </div>
-
-        <!-- Jquery -->
-        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-
-        <!-- Script -->
-        <script src="{{ asset('js/app.js') }}"></script>
-
-        <!-- Script dari penggunaan template -->
-        @stack('script')
     </body>
 
 </html>

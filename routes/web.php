@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ListAnggotaController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\VerificationReportController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,10 +36,19 @@ Route::middleware('auth')->group(function () {
 // Report (level : babinsa dan danramil)
 Route::middleware(['auth', 'level:babinsa,danramil'])->group(function () {
     Route::resource('/page/report', ReportController::class);
-    Route::get('/page/report/{report}/document', [ReportController::class, 'add_document'])->name('report.add_document');
+    Route::get('/download-report/{filename}', [ReportController::class, 'downloadReport'])->name('download.report');
+    // Route::get('/page/report/{report}/document', [ReportController::class, 'add_document'])->name('report.add_document');
+    // Route::get('/page/coba/{report}', [ReportController::class, 'generateReport'])->name('report.generateReport');
     Route::get('/page/show-index', [ReportController::class, 'show_index'])->name('report.show-index');
     Route::get('/page/show-other-index', [ReportController::class, 'show_other_index'])->name('report.show-other-index');
     Route::get('/page/show-other-index/{report}/document', [ReportController::class, 'other_document_completion'])->name('report.other-document-completion');
+    Route::POST('/page/show-other-index/document/publish', [ReportController::class, 'other_document_completion_publish'])->name('report.other-document-completion-publish');
+});
+
+// Report (level : danramil dan dandim)
+Route::middleware(['auth', 'level:danramil,dandim'])->group(function () {
+    // Verification Report
+    Route::resource('/verification-report', VerificationReportController::class);
 });
 
 // Letter (level : staf)

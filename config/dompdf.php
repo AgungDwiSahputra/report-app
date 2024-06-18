@@ -186,7 +186,17 @@ return array(
          * Used if no suitable fonts can be found. This must exist in the font folder.
          * @var string
          */
-        "default_font" => "serif",
+        'default_font' => 'sans-serif',
+
+        // Menambahkan font custom
+        'custom_font_data' => [
+            'ubuntu' => [
+                'R' => 'Ubuntu-Regular.ttf',    // Regular
+                'B' => 'Ubuntu-Bold.ttf',       // Bold
+                'I' => 'Ubuntu-Italic.ttf',     // Italic
+                'BI' => 'Ubuntu-BoldItalic.ttf' // Bold Italic
+            ]
+        ],
 
         /**
          * Image DPI setting

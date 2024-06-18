@@ -33,21 +33,26 @@
                     <ul class="text-white h-full overflow-y-auto flex-1">
                         <li class="list-navbar hover:bg-custom-green-600 {{ $page == 'profile' ? 'bg-custom-green-600' : '' }}"><a href="{{ route('page.profile') }}" class="block h-full w-full py-4 px-7">Profil</a></li>
                         <!-- Collaps Effect -->
-                        <li class="menu-collaps cursor-pointer hover:bg-custom-green-600 {{ $page == 'create-report' || $page == 'show-report' || $page == 'show-other-document-report' ? 'bg-custom-green-600' : '' }}" data-collaps="laporan">
+                        <li class="menu-collaps cursor-pointer hover:bg-custom-green-600 {{ $page == 'report' || $page == 'show-index' || $page == 'show-other-index' ? 'bg-custom-green-600' : '' }}" data-collaps="laporan">
                             <a href="javascript:void(0)" class="h-full w-full py-4 px-7 flex items-center justify-between">Laporan
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                                     <path fill-rule="evenodd" d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z" clip-rule="evenodd" />
                                 </svg>
                             </a>
                             <ul id="collaps-laporan" class="text-white hidden">
-                                <li class="list-navbar hover:bg-custom-green-700 {{ $page == 'create-report' ? 'bg-custom-green-700' : '' }}"><a href="{{ route('report.index') }}" class="block h-full w-full py-4 pl-11 pr-7">Buat Laporan</a></li>
-                                <li class="list-navbar hover:bg-custom-green-700 {{ $page == 'show-report' ? 'bg-custom-green-700' : '' }}"><a href="{{ route('report.show-index') }}" class="block h-full w-full py-4 pl-11 pr-7">Lihat & Verifikasi</a></li>
-                                <li class="list-navbar hover:bg-custom-green-700 {{ $page == 'show-other-document-report' ? 'bg-custom-green-700' : '' }}"><a href="{{ route('report.show-other-index') }}" class="block h-full w-full py-4 pl-11 pr-7">Kelengkapan Dokumen</a></li>
+                                @if (auth()->user()->level != 'babinsa' && auth()->user()->level != 'staf')
+                                    <li class="list-navbar hover:bg-custom-green-700 {{ $page == 'verification-report' ? 'bg-custom-green-700' : '' }}"><a href="{{ route('verification-report.index') }}" class="block h-full w-full py-4 pl-11 pr-7">Verifikasi Laporan</a></li>
+                                @endif
+                                @if (auth()->user()->level != 'dandim')
+                                    <li class="list-navbar hover:bg-custom-green-700 {{ $page == 'report' ? 'bg-custom-green-700' : '' }}"><a href="{{ route('report.index') }}" class="block h-full w-full py-4 pl-11 pr-7">Buat Laporan</a></li>
+                                    <li class="list-navbar hover:bg-custom-green-700 {{ $page == 'show-index' ? 'bg-custom-green-700' : '' }}"><a href="{{ route('report.show-index') }}" class="block h-full w-full py-4 pl-11 pr-7">Lihat & Verifikasi</a></li>
+                                    <li class="list-navbar hover:bg-custom-green-700 {{ $page == 'show-other-index' ? 'bg-custom-green-700' : '' }}"><a href="{{ route('report.show-other-index') }}" class="block h-full w-full py-4 pl-11 pr-7">Kelengkapan Dokumen</a></li>
+                                @endif
                             </ul>
                         </li>
                         <!-- Collaps Effect -->
-                        @if(auth()->check())
-                            @if(auth()->user()->level == 'staf')
+                        @if (auth()->check())
+                            @if (auth()->user()->level == 'staf')
                                 <li class="menu-collaps cursor-pointer hover:bg-custom-green-600 {{ $page == 'create-letter' || $page == 'show-letter' || $page == 'show-other-document-letter' ? 'bg-custom-green-600' : '' }}" data-collaps="surat-pengajuan">
                                     <a href="javascript:void(0)" class="h-full w-full py-4 px-7 flex items-center justify-between">Surat Pengajuan
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
@@ -63,18 +68,18 @@
                             @endif
                         @endif
                         <!-- Collaps Effect -->
-                        @if(auth()->check())
-                            {{-- @if(auth()->user()->level == 'admin') --}}
-                                <li class="menu-collaps cursor-pointer hover:bg-custom-green-600 {{ $page == 'list-anggota' ? 'bg-custom-green-600' : '' }}" data-collaps="anggota">
-                                    <a href="javascript:void(0)" class="h-full w-full py-4 px-7 flex items-center justify-between">Anggota
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
-                                            <path fill-rule="evenodd" d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z" clip-rule="evenodd" />
-                                        </svg>
-                                    </a>
-                                    <ul id="collaps-anggota" class="text-white hidden">
-                                        <li class="list-navbar hover:bg-custom-green-700 {{ $page == 'list-anggota' ? 'bg-custom-green-700' : '' }}"><a href="{{ route('list-anggota.index') }}" class="block h-full w-full py-4 pl-11 pr-7">Daftar Anggota</a></li>
-                                    </ul>
-                                </li>
+                        @if (auth()->check())
+                            {{-- @if (auth()->user()->level == 'admin') --}}
+                            <li class="menu-collaps cursor-pointer hover:bg-custom-green-600 {{ $page == 'list-anggota' ? 'bg-custom-green-600' : '' }}" data-collaps="anggota">
+                                <a href="javascript:void(0)" class="h-full w-full py-4 px-7 flex items-center justify-between">Anggota
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                        <path fill-rule="evenodd" d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z" clip-rule="evenodd" />
+                                    </svg>
+                                </a>
+                                <ul id="collaps-anggota" class="text-white hidden">
+                                    <li class="list-navbar hover:bg-custom-green-700 {{ $page == 'list-anggota' ? 'bg-custom-green-700' : '' }}"><a href="{{ route('list-anggota.index') }}" class="block h-full w-full py-4 pl-11 pr-7">Daftar Anggota</a></li>
+                                </ul>
+                            </li>
                             {{-- @endif --}}
                         @endif
                     </ul>
@@ -156,7 +161,7 @@
                         buttonsStyling: false
                     });
                 @endif
-    
+
                 @if (session('success'))
                     Swal.fire({
                         icon: 'success',
@@ -168,7 +173,7 @@
                         buttonsStyling: false
                     });
                 @endif
-    
+
                 @if (session('error'))
                     Swal.fire({
                         icon: 'error',

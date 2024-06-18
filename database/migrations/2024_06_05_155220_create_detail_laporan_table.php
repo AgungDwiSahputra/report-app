@@ -20,16 +20,17 @@ class CreateDetailLaporanTable extends Migration
             $table->bigInteger('diterima_oleh')->unsigned();
             $table->string('wilayah_asal')->nullable(false);
             $table->string('hal_menonjol')->nullable(false);
+            $table->text('deskripsi')->nullable(false);
             $table->string('cuaca')->nullable(false);
-            $table->string('jml_personil')->nullable(false);
-            $table->string('personil_hadir')->nullable(false);
-            $table->string('personil_kurang')->nullable(false);
-            $table->string('dinas_dalam')->nullable(false);
-            $table->string('dinas_luar')->nullable(false);
-            $table->string('piket_pos')->nullable(false);
+            $table->string('jml_personil')->nullable(true);
+            $table->string('personil_hadir')->nullable(true);
+            $table->string('personil_kurang')->nullable(true);
+            $table->string('dinas_dalam')->nullable(true);
+            $table->string('dinas_luar')->nullable(true);
+            $table->string('piket_pos')->nullable(true);
             $table->string('materil')->nullable(false);
-            $table->string('tembusan')->nullable(false);
-            $table->string('lampiran')->nullable(false);
+            $table->text('tembusan')->nullable(false);
+            $table->text('lampiran')->nullable(false);
             $table->timestamps();
 
             $table->foreign('id_laporan')->references('id')->on('laporan');

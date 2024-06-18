@@ -13,7 +13,7 @@
 @section('content')
     <div class="w-10/12 bg-white rounded-2xl mt-[100px] ml-[100px] mr-6 mb-6">
         <div id="box-heading" class="bg-custom-green-700 rounded-t-2xl py-3 px-5">
-            <h1 class="text-2xl text-white font-bold">Kelengkapan Dokumen</h1>
+            <h1 class="text-2xl text-white font-bold">Verifikasi Laporan</h1>
         </div>
         <div class="p-8">
             <div class="w-2/4 bg-custom-green-500 p-4 -ml-9 rounded-md shadow-md">
@@ -30,24 +30,30 @@
                 if (substr($report->penerima->no_telp, 0, 1) === '0') {
                     $phone_number = '62' . substr($report->penerima->no_telp, 1);
                 }
-                $message = 'Ytg. Dandim 1416/Muna. Kami ingin memberitahukan bahwa Danramil ' . $report->pembuat->nama_lengkap . ' telah menyelesaikan laporan terbaru. Laporan ini memerlukan perhatian Anda segera untuk verifikasi lebih lanjut. Mohon klik link berikut untuk mengakses dan meninjau laporan tersebut: ' . route('verification-report.index') . '. 
-                Kami sangat menghargai waktu dan kerja sama Anda dalam memastikan informasi yang akurat dan langkah-langkah yang tepat dapat segera diambil. Terima kasih atas perhatiannya.';
-                $encoded_message = urlencode($message);
             @endphp
-            <div class="flex items-center justify-end gap-2">
-                <a href="{{ route('report.show-other-index') }}" class="block btn-custom w-fit">Kembali</a>
-                {{-- <a {{ $report->laporan->status == 'publish' ? 'target="_BLANK" href="https://wa.me/' . $phone_number . '?text=' . $encoded_message . '" onclick="notification()"' : 'onclick="kirim_laporan()"' }} id="kirim-laporan" class="block btn-custom w-fit cursor-pointer">{{ $report->laporan->status == 'publish' ? 'Kirim Notifikasi' : 'Kirim Laporan' }}</a> --}}
-                <a @if ($report->laporan->status == 'publish') 
-                        target="_BLANK" 
-                        href="https://wa.me/{{ $phone_number }}?text={{ $encoded_message }}" 
-                        onclick="notification()"
-                    @else 
-                        onclick="kirim_laporan()" 
-                    @endif 
-                    id="kirim-laporan" class="block btn-custom w-fit cursor-pointer">
-                    {{ $report->laporan->status == 'publish' ? 'Kirim Notifikasi' : 'Kirim Laporan' }}
-                </a>
-            </div>
+            <form action="{{ route('verification-report.update', $report->laporan->id) }}" method="POST">
+                @method('PUT')
+                @csrf
+                <div class="flex items-center justify-start gap-5">
+                    <div class="flex items-center border border-gray-300 rounded-lg overflow-hidden focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500">
+                        <span class="inline-flex items-center px-3 border-r-1 border-solid border-gray-300">
+                            <!-- SVG Ikon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 0 1 .67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 1 1-.671-1.34l.041-.022ZM12 9a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" clip-rule="evenodd" />
+                            </svg>
+                        </span>
+                        <select id="tindakan" name="tindakan" class="w-full h-10 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500 sm:text-md">
+                            <option value="">-- PILIH --</option>
+                            <option value="verification" {{ old('tindakan') == 'verification' ? 'selected' : '' }}>Verifikasi</option>
+                            <option value="not-verify" {{ old('tindakan') == 'not-verify' ? 'selected' : '' }}>Tolak Laporan</option>
+                        </select>
+                    </div>
+                    <div>
+                        <a href="{{ route('verification-report.index') }}" type="button"><button class="btn-custom">Kembali</button></a>
+                        <button type="submit" class="btn-custom">Kirim</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 @endsection
@@ -61,7 +67,7 @@
             ]
         });
 
-        function kirim_laporan() {
+        function notification() {
             $.ajax({
                 url: '{{ route('report.other-document-completion-publish') }}',
                 type: 'POST',
@@ -74,27 +80,22 @@
                         Swal.fire({
                             icon: 'success',
                             title: 'Berhasil',
-                            text: 'Laporan Berhasil Terkirim',
+                            text: 'Notifikasi Berhasil Terkirim',
                             customClass: {
                                 confirmButton: 'btn-custom'
                             },
                             buttonsStyling: false
                         });
 
-                        var phone_number = "{{ $phone_number }}";
-                        var encoded_message = "{{ $encoded_message }}";
-                        var link = `https://wa.me/${phone_number}?text=${encoded_message}`;
-
-                        $('#kirim-laporan').attr({
-                            'target': '_BLANK',
-                            'href': link,
-                            'onclick': 'notification()'
-                        }).text('Kirim Notifikasi');
+                        $('.btn-custom').attr('href', "{{ route('report.show-other-index') }}")
+                            .removeAttr('target')
+                            .removeAttr('onclick')
+                            .text('Kembali');
                     } else {
                         Swal.fire({
                             icon: 'error',
                             title: 'Terdapat Kesalahan',
-                            text: 'Laporan Gagal Terkirim',
+                            text: 'Notifikasi Gagal Terkirim',
                             customClass: {
                                 confirmButton: 'btn-custom'
                             },
@@ -105,18 +106,6 @@
                 error: function() {
                     alert('Terjadi kesalahan. Silakan coba lagi.');
                 }
-            });
-        }
-
-        function notification() {
-            Swal.fire({
-                icon: 'success',
-                title: 'Berhasil',
-                text: 'Notifikasi Berhasil Terkirim',
-                customClass: {
-                    confirmButton: 'btn-custom'
-                },
-                buttonsStyling: false
             });
         }
     </script>
