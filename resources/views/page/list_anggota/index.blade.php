@@ -24,6 +24,7 @@
                     <tr>
                         <th>No.</th>
                         <th>Nama</th>
+                        <th>Jabatan</th>
                         <th>NRP</th>
                         <th>Penempatan</th>
                         <th>Detail</th>
@@ -34,6 +35,7 @@
                         <tr>
                             <td>{{ $key+1 }}</td>
                             <td>{{ $data->nama_lengkap }}</td>
+                            <td>{{ ucfirst($data->level) }}</td>
                             <td>{{ $data->NRP }}</td>
                             <td>{{ $data->penempatan }}</td>
                             <td class="flex items-center justify-center">
@@ -64,10 +66,27 @@
 @push('script')
     <script src="https://cdn.datatables.net/2.0.7/js/dataTables.min.js"></script>
     <script type="text/javascript">
-        $('#table-list-laporan').DataTable({
-            order: [
-                [0, 'asc']
-            ]
+        $(document).ready(function() {
+            // Custom sorting function for the 'jabatan' column
+            $.fn.dataTable.ext.order['jabatan-pre'] = function(settings, col) {
+                var order = ['dandim', 'staf', 'danramil', 'babinsa'];
+                return this.api().column(col, { order: 'index' }).nodes().map(function(td, i) {
+                    return order.indexOf($(td).text());
+                });
+            };
+
+            // Initialize DataTable with custom sorting
+            $('#table-list-laporan').DataTable({
+                "columnDefs": [
+                    {
+                        "targets": 2, // index of the 'jabatan' column
+                        "orderDataType": "jabatan-pre"
+                    }
+                ],
+                order: [
+                    [2, 'asc']
+                ]
+            });
         });
     </script>
 @endpush

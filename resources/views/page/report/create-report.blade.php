@@ -112,8 +112,13 @@
                                 </span>
                                 <select id="wilayah_asal" name="wilayah_asal" class="w-full h-10 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500 sm:text-md">
                                     <option value="">-- PILIH --</option>
-                                    <option value="Koramil 01-Tikep">Koramil 01-Tikep</option>
-                                    <option value="Koramil 02-Tikep">Koramil 02-Tikep</option>
+                                    <option value="Koramil 1416-01/Katobu">Koramil 1416-01/Katobu</option>
+                                    <option value="Koramil 1416-02/Tikep">Koramil 1416-02/Tikep</option>
+                                    <option value="Koramil 1416-03/Tongkuno">Koramil 1416-03/Tongkuno</option>
+                                    <option value="Koramil 1416-04/Kabawo">Koramil 1416-04/Kabawo</option>
+                                    <option value="Koramil 1416-05/Maligano">Koramil 1416-05/Maligano</option>
+                                    <option value="Koramil 1416-06/Lawa">Koramil 1416-06/Lawa</option>
+                                    <option value="Koramil 1416-07/Tampo">Koramil 1416-07/Tampo</option>
                                 </select>
                             </div>
                         </div>
@@ -157,7 +162,7 @@
                                 </span>
                                 <input {{ old('deskripsi') }} placeholder="deskripsi" type="text" name="deskripsi" id="deskripsi" class="w-full h-10 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500 sm:text-md">
                             </div>
-                            <span class="text-xs text-red-600">*Pastikan selalu tutup dengan " ; " </span>
+                            <span class="text-xs text-red-600">*Point baru gunakan " ; " </span>
                         </div>
                         <!-- Cuaca -->
                         <div class="mb-2">
@@ -300,7 +305,7 @@
                                 </span>
                                 <input value="{{ old('tembusan') }}" placeholder="Tembusan" type="text" name="tembusan" id="tembusan" class="w-full h-10 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500 sm:text-md">
                             </div>
-                            <span class="text-xs text-red-600">*Pastikan selalu tutup dengan " ; " </span>
+                            <span class="text-xs text-red-600">*Point baru gunakan " ; " </span>
                         </div>
                     </div>
 

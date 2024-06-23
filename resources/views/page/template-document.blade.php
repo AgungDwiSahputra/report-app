@@ -29,6 +29,7 @@
                 font-style: italic;
             }
             body {
+                font-size:14px;
                 font-family: 'Ubuntu', sans-serif;
             }
             span{
@@ -38,48 +39,107 @@
     </head>
 
     <body class="overflow-x-hidden">
+        @php
+            // Menghapus "Koramil " dari awal kalimat
+            $wilayah_asal_danramil = str_replace("Koramil ", "", $data->wilayah_asal);
+
+            // Membuat format "1416/Muna"
+            $wilayah_asal_dandim = preg_replace("/(\d{4})-\d{2}\/\w+/", "$1/Muna", $wilayah_asal_danramil);
+        @endphp
         <div class="text-center mb-5">
             <span style="text-align:left">KOMANDO DISTRIK MILITER 1416/MUNA</span>
-            <span style="text-align:left;text-decoration:underline;">KOMANDO RAYON MILITER 1416-06/LAWA</span>
+            <span style="text-align:left;text-decoration:underline;">KOMANDO RAYON MILITER {{ $wilayah_asal_danramil }}</span>
             <br><br><br>
             <center>
                 <span>LAPORAN SITUASI HARIAN</span>
-                <span>Nomor: RU/LSH/{{ date('Y') }}/{{ $data->pembuat->jabatan . " " . $data->wilayah_asal }}</span>
+                <span>Nomor: RI/{{ $data->laporan->id }}/LSH/{{ date('Y') }}/{{ $data->pembuat->jabatan . " " . $data->wilayah_asal }}</span>
                 <br>
-                <span>PEMANTAUAN WILAYAH {{ $data->wilayah_asal }}</span>
+                <span>PEMANTAUAN WILAYAH {{ strtoupper($data->wilayah_asal) }}</span>
                 <span>TWP. {{ $data->laporan->waktu_buat }} WITA. {{ $data->laporan->tanggal_buat }}</span>
             </center>
         </div>
         <br>
         <div style="margin-bottom: 8px;">
-            <span>Yth. {{ $data->penerima->nama_lengkap }}</span>
-            <span>Dari {{ $data->pembuat->nama_lengkap }}</span>
+            @if($data->pembuat->level == 'babinsa')
+                <span>Yth. {{ $data->penerima->jabatan . " " . $wilayah_asal_danramil }}</span>
+            @else
+                <span>Yth. {{ $data->penerima->jabatan . " " . $wilayah_asal_dandim }}</span>
+            @endif
+            <span>Dari {{ $data->pembuat->jabatan . " " . $data->wilayah_asal }}</span>
         </div>
 
         <div style="margin-bottom: 8px;">
             <span>Ijin melaporkan</span>
-            <ol type="1" style="margin-top: 0 !important;">
-                <li>Perkembangan Situasi Wilayah {{ $data->laporan->wilayah_asal }} pada Hari Senin, {{ $data->laporan->tanggal_buat }}, Pukul {{ $data->laporan->waktu_buat }} WITA dalam keadaan aman terkendali.</li>
-                <li>Hal-Hal Menonjol : {{ $data->hal_menonjol }}</li>
-                <li>Cuaca : {{ $data->cuaca }}</li>
-                @if(auth()->user()->level != 'babinsa')
-                    <li>Jumlah Personil : {{ $data->jml_personil }}</li>
-                    <li>Personil Hadir : {{ $data->personil_hadir }}</li>
-                    <li>Personil Kurang : {{ $data->personil_kurang }}</li>
-                @endif
-            </ol>
+            <table style="width: 100%;margin-left:20px">
+                <tr>
+                    <td style="vertical-align: top;width: 10px">1.</td>
+                    <td style="vertical-align: top;" colspan="3">Perkembangan Situasi Wilayah {{ $data->laporan->wilayah_asal }} pada Hari Senin, {{ $data->laporan->tanggal_buat }}, Pukul {{ $data->laporan->waktu_buat }} WITA dalam keadaan aman terkendali.</td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top;width: 10px">2.</td>
+                    <td style="vertical-align: top;width: 150px">Hal-Hal Menonjol</td>
+                    <td style="vertical-align: top;width: 10px">:</td>
+                    <td style="vertical-align: top;">{{ $data->hal_menonjol }}</td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top;width: 10px">3.</td>
+                    <td style="vertical-align: top;width: 150px">Cuaca</td>
+                    <td style="vertical-align: top;width: 10px">:</td>
+                    <td style="vertical-align: top;">{{ $data->cuaca }}</td>
+                </tr>
+            @if(auth()->user()->level != 'babinsa')
+                <tr>
+                    <td style="vertical-align: top;width: 10px">4.</td>
+                    <td style="vertical-align: top;width: 150px">Jumlah Personil</td>
+                    <td style="vertical-align: top;width: 10px">:</td>
+                    <td style="vertical-align: top;">{{ $data->jml_personil }}</td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top;width: 10px">5.</td>
+                    <td style="vertical-align: top;width: 150px">Personil Hadir</td>
+                    <td style="vertical-align: top;width: 10px">:</td>
+                    <td style="vertical-align: top;">{{ $data->personil_hadir }}</td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top;width: 10px">6.</td>
+                    <td style="vertical-align: top;width: 150px">Personil Kurang</td>
+                    <td style="vertical-align: top;width: 10px">:</td>
+                    <td style="vertical-align: top;">{{ $data->personil_kurang }}</td>
+                </tr>
+            @endif
+            </table>
         </div>
 
         <div style="margin-bottom: 8px;">
             <span>Keterangan</span>
-            <ol type="1" style="margin-top: 0 !important;">
-                @if(auth()->user()->level != 'babinsa')
-                    <li>Dinas Dalam : {{ $data->dinas_dalam }}</li>
-                    <li>Dinas Luar : {{ $data->dinas_luar }}</li>
-                    <li>Piket Koramil : {{ $data->piket_pos }}</li>
-                @endif
-                <li>Materil : {{ $data->materil }}</li>
-            </ol>
+            <table style="width: 100%;margin-left:20px">
+                <tr>
+                    <td style="vertical-align: top;width: 10px">1.</td>
+                    <td style="vertical-align: top;width: 150px">Materil</td>
+                    <td style="vertical-align: top;width: 10px">:</td>
+                    <td style="vertical-align: top;">{{ ucwords($data->materil) }}</td>
+                </tr>
+            @if(auth()->user()->level != 'babinsa')
+                <tr>
+                    <td style="vertical-align: top;width: 10px">2.</td>
+                    <td style="vertical-align: top;width: 150px">Dinas Dalam</td>
+                    <td style="vertical-align: top;width: 10px">:</td>
+                    <td style="vertical-align: top;">{{ $data->dinas_dalam }}</td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top;width: 10px">2.</td>
+                    <td style="vertical-align: top;width: 150px">Dinas Luar</td>
+                    <td style="vertical-align: top;width: 10px">:</td>
+                    <td style="vertical-align: top;">{{ $data->dinas_luar }}</td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top;width: 10px">3.</td>
+                    <td style="vertical-align: top;width: 150px">Piket Koramil</td>
+                    <td style="vertical-align: top;width: 10px">:</td>
+                    <td style="vertical-align: top;">{{ $data->piket_pos }}</td>
+                </tr>
+            @endif
+            </table>
         </div>
 
         <div style="margin-bottom: 8px;">
@@ -104,6 +164,44 @@
                 @endforeach
             </ol>
         </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <h3>Lampiran</h3>
+        <table>
+            @foreach($data->lampiran as $lampiran)
+                <tr>
+                    <td>
+                        <img width="400px" src="{{ public_path('storage/images/report/' . $lampiran) }}" alt="Image Lampiran">
+                    </td>
+                </tr>
+            @endforeach
+        </table>
     </body>
 
 </html>

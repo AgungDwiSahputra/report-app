@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DetailLaporan;
+use App\Models\DetailPengajuan;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Storage;
+use PDF;
 
 class Controller extends BaseController
 {
@@ -33,6 +38,62 @@ class Controller extends BaseController
         $text = ucwords($text);
 
         return $text;
+    }
+
+    // Generating PDF
+    public function generateReport($id_laporan)
+    {
+        $data = DetailLaporan::with(['laporan', 'pembuat', 'penerima'])
+            ->whereHas('laporan', function ($query) use ($id_laporan) {
+                $query->where('id', $id_laporan);
+            })->first();
+
+        $data->cuaca = str_replace('-', ' ', $data->cuaca);
+        // Ubah menjadi Title Case
+        $data->cuaca = ucwords($data->cuaca);
+
+        $data->laporan->tanggal_buat = Carbon::parse($data->laporan->created_at)
+            ->setTimezone('Asia/Makassar')
+            ->translatedFormat('l, d F Y');
+        $data->laporan->waktu_buat = Carbon::parse($data->laporan->created_at)->setTimezone('Asia/Makassar')->translatedFormat('H.i');
+
+        $data->lampiran = explode(',', $data->lampiran);
+
+        $pdf = PDF::loadView('page.template-document', compact('data'));
+
+        // Buat nama file dengan ekstensi .pdf
+        $filename = 'Laporan_Situasi_Harian_' . $id_laporan . '.pdf';
+
+        // Simpan file PDF ke folder storage/app/public/document/report
+        Storage::makeDirectory('public/document/report');
+        Storage::put('public/document/report/' . $filename, $pdf->output());
+        return $filename;
+    }
+
+    public function generatePengajuan($id_pengajuan)
+    {
+        $data = DetailPengajuan::with(['pengajuan', 'pembuat', 'penerima'])
+            ->whereHas('pengajuan', function ($query) use ($id_pengajuan) {
+                $query->where('id', $id_pengajuan);
+            })->first();
+
+        $data->pengajuan->tanggal_buat = Carbon::parse($data->pengajuan->created_at)
+            ->setTimezone('Asia/Makassar')
+            // ->translatedFormat('l, d F Y');
+            ->translatedFormat('d F Y');
+        $data->pengajuan->waktu_buat = Carbon::parse($data->pengajuan->created_at)->setTimezone('Asia/Makassar')->translatedFormat('H.i');
+
+        // $data->lampiran = explode(',', $data->lampiran);
+
+        $pdf = PDF::loadView('page.template-surat-pengajuan', compact('data'));
+
+        // Buat nama file dengan ekstensi .pdf
+        $filename = 'Surat_Pengajuan_Situasi_Harian_' . $id_pengajuan . '.pdf';
+
+        // Simpan file PDF ke folder storage/app/public/document/pengajuan
+        Storage::makeDirectory('public/document/pengajuan');
+        Storage::put('public/document/pengajuan/' . $filename, $pdf->output());
+        return $filename;
     }
     // End Function Custom
 }

@@ -13,7 +13,7 @@
 @section('content')
     <div class="lg:w-10/12 w-11/12 bg-white rounded-2xl lg:mt-[100px] lg:ml-[100px] mt-[55px] ml-[10px] mr-6 mb-6">
         <div id="box-heading" class="bg-custom-green-700 rounded-t-2xl py-3 px-5">
-            <h1 class="text-2xl text-white font-bold">Lihat & Verifikasi</h1>
+            <h1 class="text-2xl text-white font-bold">Lihat & Validasi</h1>
         </div>
 
         <div class="p-8">
@@ -102,8 +102,13 @@
                             </span>
                             <select id="wilayah_asal" name="wilayah_asal" class="w-full h-10 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500 sm:text-md">
                                 <option value="">-- PILIH --</option>
-                                <option value="Koramil 01-Tikep" {{ $report->wilayah_asal == 'Koramil 01-Tikep' ? 'selected' : '' }}>Koramil 01-Tikep</option>
-                                <option value="Koramil 02-Tikep" {{ $report->wilayah_asal == 'Koramil 02-Tikep' ? 'selected' : '' }}>Koramil 02-Tikep</option>
+                                <option value="Koramil 1416-01/Katobu" {{ $report->wilayah_asal == 'Koramil 1416-01/Katobu' ? 'selected' : '' }}>Koramil 1416-01/Katobu</option>
+                                <option value="Koramil 1416-02/Tikep" {{ $report->wilayah_asal == 'Koramil 1416-02/Tikep' ? 'selected' : '' }}>Koramil 1416-02/Tikep</option>
+                                <option value="Koramil 1416-03/Tongkuno" {{ $report->wilayah_asal == 'Koramil 1416-03/Tongkuno' ? 'selected' : '' }}>Koramil 1416-03/Tongkuno</option>
+                                <option value="Koramil 1416-04/Kabawo" {{ $report->wilayah_asal == 'Koramil 1416-04/Kabawo' ? 'selected' : '' }}>Koramil 1416-04/Kabawo</option>
+                                <option value="Koramil 1416-05/Maligano" {{ $report->wilayah_asal == 'Koramil 1416-05/Maligano' ? 'selected' : '' }}>Koramil 1416-05/Maligano</option>
+                                <option value="Koramil 1416-06/Lawa" {{ $report->wilayah_asal == 'Koramil 1416-06/Lawa' ? 'selected' : '' }}>Koramil 1416-06/Lawa</option>
+                                <option value="Koramil 1416-07/Tampo" {{ $report->wilayah_asal == 'Koramil 1416-07/Tampo' ? 'selected' : '' }}>Koramil 1416-07/Tampo</option>
                             </select>
                         </div>
                     </div>
@@ -147,7 +152,7 @@
                             </span>
                             <input value="{{ $report->deskripsi }}" placeholder="deskripsi" type="text" name="deskripsi" id="deskripsi" class="w-full h-10 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500 sm:text-md">
                         </div>
-                        <span class="text-xs text-red-600">*Pastikan selalu tutup dengan " ; " </span>
+                        <span class="text-xs text-red-600">*Point baru gunakan " ; " </span>
                     </div>
                     <!-- Cuaca -->
                     <div class="mb-2">
@@ -290,7 +295,7 @@
                             </span>
                             <input value="{{ $report->tembusan }}" placeholder="Tembusan" type="text" name="tembusan" id="tembusan" class="w-full h-10 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500 sm:text-md">
                         </div>
-                        <span class="text-xs text-red-600">*Pastikan selalu tutup dengan " ; " </span>
+                        <span class="text-xs text-red-600">*Point baru gunakan " ; " </span>
                     </div>
                 </div>
 

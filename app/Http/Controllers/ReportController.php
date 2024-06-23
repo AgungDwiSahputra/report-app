@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\DetailLaporan;
 use App\Models\Laporan;
 use App\Models\Pengguna;
-use PDF;
 use Illuminate\Http\Request;
 
 use Carbon\Carbon;
@@ -13,35 +12,7 @@ use Illuminate\Support\Facades\Storage;
 
 class ReportController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
-    // Function Custom
-    // Generating PDF
-    public function generateReport($id_laporan)
-    {
-        $data = DetailLaporan::with(['laporan', 'pembuat', 'penerima'])
-            ->whereHas('laporan', function ($query) use ($id_laporan) {
-                $query->where('id', $id_laporan);
-            })->first();
-
-        $data->laporan->tanggal_buat = Carbon::parse($data->laporan->created_at)->translatedFormat('d F Y');
-        $data->laporan->waktu_buat = Carbon::parse($data->laporan->created_at)->translatedFormat('H.i');
-
-        $pdf = PDF::loadView('page.template-document', compact('data'));
-
-        // Buat nama file dengan ekstensi .pdf
-        $filename = 'Laporan_Situasi_Harian_' . $id_laporan . '.pdf';
-
-        // Simpan file PDF ke folder storage/app/public/document/report
-        Storage::makeDirectory('public/document/report');
-        Storage::put('public/document/report/' . $filename, $pdf->output());
-        return $filename;
-    }
-
+    // Custom function
     public function downloadReport($filename)
     {
         // Tentukan path file di Storage
@@ -55,8 +26,12 @@ class ReportController extends Controller
         // Ambil file dari Storage dan unduh
         return Storage::download($filePath);
     }
-
-    // End Function Custom
+    // End Custom function
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
 
     public function index(Request $request)
     {
@@ -465,7 +440,6 @@ class ReportController extends Controller
             // Simpan data ke tabel laporan
             $laporan->jenis_laporan = $request->jenis_laporan;
             $laporan->judul_laporan = $request->judul_laporan;
-            $laporan->file_laporan = $this->generateReport($id);
             $laporan->status = 'valid';
             $laporan->save();
 
@@ -501,6 +475,9 @@ class ReportController extends Controller
             $detailLaporan->materil = $request->materil;
             $detailLaporan->tembusan = $request->tembusan;
             $detailLaporan->save();
+
+            $laporan->file_laporan = $this->generateReport($id);
+            $laporan->save();
 
             return redirect()->route('report.other-document-completion', $laporan->id)->with('success', 'Berhasil Validasi');
         } catch (\Exception $e) {

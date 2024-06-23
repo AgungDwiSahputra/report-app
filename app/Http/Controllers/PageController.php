@@ -132,59 +132,59 @@ class PageController extends Controller
     // End Laporan
 
     // Surat
-    public function create_letter(Request $request, $page = null)
-    {
-        // Mendapatkan URL saat ini
-        $currentUrl = $request->path();
+    // public function create_letter(Request $request, $page = null)
+    // {
+    //     // Mendapatkan URL saat ini
+    //     $currentUrl = $request->path();
 
-        // Memproses bagian URL yang diinginkan, misalnya, mengambil segmen terakhir
-        $page = last(explode('/', $currentUrl));
-        $namePage = $this->kebabToTitleCase($page);
+    //     // Memproses bagian URL yang diinginkan, misalnya, mengambil segmen terakhir
+    //     $page = last(explode('/', $currentUrl));
+    //     $namePage = $this->kebabToTitleCase($page);
 
-        $data = [
-            'title' => 'SIKOM1416 | ' . $namePage,
-            'page' => $page,
-            'namePage' => $namePage,
-        ];
+    //     $data = [
+    //         'title' => 'SIKOM1416 | ' . $namePage,
+    //         'page' => $page,
+    //         'namePage' => $namePage,
+    //     ];
 
-        return view('page.create-letter', $data);
-    }
+    //     return view('page.create-letter', $data);
+    // }
 
-    public function show_letter(Request $request, $page = null)
-    {
-        // Mendapatkan URL saat ini
-        $currentUrl = $request->path();
+    // public function show_letter(Request $request, $page = null)
+    // {
+    //     // Mendapatkan URL saat ini
+    //     $currentUrl = $request->path();
 
-        // Memproses bagian URL yang diinginkan, misalnya, mengambil segmen terakhir
-        $page = last(explode('/', $currentUrl));
-        $namePage = $this->kebabToTitleCase($page);
+    //     // Memproses bagian URL yang diinginkan, misalnya, mengambil segmen terakhir
+    //     $page = last(explode('/', $currentUrl));
+    //     $namePage = $this->kebabToTitleCase($page);
 
-        $data = [
-            'title' => 'SIKOM1416 | ' . $namePage,
-            'page' => $page,
-            'namePage' => $namePage,
-        ];
+    //     $data = [
+    //         'title' => 'SIKOM1416 | ' . $namePage,
+    //         'page' => $page,
+    //         'namePage' => $namePage,
+    //     ];
 
-        return view('page.show-letter', $data);
-    }
+    //     return view('page.show-letter', $data);
+    // }
 
-    public function show_other_document_letter(Request $request, $page = null)
-    {
-        // Mendapatkan URL saat ini
-        $currentUrl = $request->path();
+    // public function show_other_document_letter(Request $request, $page = null)
+    // {
+    //     // Mendapatkan URL saat ini
+    //     $currentUrl = $request->path();
 
-        // Memproses bagian URL yang diinginkan, misalnya, mengambil segmen terakhir
-        $page = last(explode('/', $currentUrl));
-        $namePage = $this->kebabToTitleCase($page);
+    //     // Memproses bagian URL yang diinginkan, misalnya, mengambil segmen terakhir
+    //     $page = last(explode('/', $currentUrl));
+    //     $namePage = $this->kebabToTitleCase($page);
 
-        $data = [
-            'title' => 'SIKOM1416 | ' . $namePage,
-            'page' => $page,
-            'namePage' => $namePage,
-        ];
+    //     $data = [
+    //         'title' => 'SIKOM1416 | ' . $namePage,
+    //         'page' => $page,
+    //         'namePage' => $namePage,
+    //     ];
 
-        return view('page.show-other-letter', $data);
-    }
+    //     return view('page.show-other-letter', $data);
+    // }
     // End Surat
 
 }

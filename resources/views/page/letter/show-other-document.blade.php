@@ -17,47 +17,47 @@
         </div>
         <div class="p-8">
             <div class="w-2/4 bg-custom-green-500 p-4 -ml-9 rounded-md shadow-md">
-                <span class="block text-bold text-white">ID Laporan: {{ $report->id_laporan }} / No. RI/{{ $report->laporan->id }}/LSH/{{ date('Y') }}/{{ $report->pembuat->jabatan . " " . $report->wilayah_asal }}</span>
-                <span class="block text-bold text-white">Laporan: {{ $report->laporan->judul_laporan }}</span>
+                <span class="block text-bold text-white">ID Surat: {{ $letter->id_pengajuan }} / No. RI/{{ $letter->pengajuan->id }}/LSH/{{ date('Y') }}/{{ $letter->pembuat->jabatan . " " . $letter->wilayah_asal }}</span>
+                <span class="block text-bold text-white">Surat: {{ $letter->pengajuan->judul_pengajuan }}</span>
             </div>
 
             <div id="document-view" class="my-10">
-                <iframe src="{{ url('storage/document/report/' . $report->laporan->file_laporan) }}" width="100%" height="600px"></iframe>
+                <iframe src="{{ url('storage/document/pengajuan/' . $letter->pengajuan->file_pengajuan) }}" width="100%" height="600px"></iframe>
             </div>
 
             @php
-                
                 // Cek jika angka pertama adalah 0, ganti dengan 62
-                if (substr($report->penerima->no_telp, 0, 1) === '0') {
-                    $phone_number = '62' . substr($report->penerima->no_telp, 1);
+                if (substr($letter->penerima->no_telp, 0, 1) === '0') {
+                    $phone_number = '62' . substr($letter->penerima->no_telp, 1);
                 }
-                
+
                 // Menghapus "Koramil " dari awal kalimat
-                $wilayah_asal_danramil = str_replace("Koramil ", "", $report->wilayah_asal);
+                $wilayah_asal_danramil = str_replace("Koramil ", "", $letter->wilayah_asal);
                 // Membuat format "1416/Muna"
                 $wilayah_asal_dandim = preg_replace("/(\d{4})-\d{2}\/\w+/", "$1/Muna", $wilayah_asal_danramil);
-                if($report->pembuat->level == 'babinsa'){
-                    $message = 'Ytg. '.$report->penerima->jabatan . ' ' . $wilayah_asal_danramil.'. Kami ingin memberitahukan bahwa '. $report->pembuat->jabatan . ' ' . $report->wilayah_asal .' telah menyelesaikan laporan terbaru. Laporan ini memerlukan perhatian Anda segera untuk verifikasi lebih lanjut. Mohon klik link berikut untuk mengakses dan meninjau laporan tersebut: ' . route('verification-report.index') . '. 
+
+                if($letter->pembuat->level == 'babinsa'){
+                    $message = 'Ytg. '.$letter->penerima->jabatan . ' ' . $wilayah_asal_danramil.'. Kami ingin memberitahukan bahwa '. $letter->pembuat->jabatan . ' ' . $letter->wilayah_asal .' telah menyelesaikan laporan terbaru. Laporan ini memerlukan perhatian Anda segera untuk verifikasi lebih lanjut. Mohon klik link berikut untuk mengakses dan meninjau laporan tersebut: ' . route('verification-pengajuan.index') . '. 
                     Kami sangat menghargai waktu dan kerja sama Anda dalam memastikan informasi yang akurat dan langkah-langkah yang tepat dapat segera diambil. Terima kasih atas perhatiannya.';
                 }else{
-                    $message = 'Ytg. '.$report->penerima->jabatan . ' ' . $wilayah_asal_dandim.'. Kami ingin memberitahukan bahwa '. $report->pembuat->jabatan . ' ' . $report->wilayah_asal .' telah menyelesaikan laporan terbaru. Laporan ini memerlukan perhatian Anda segera untuk verifikasi lebih lanjut. Mohon klik link berikut untuk mengakses dan meninjau laporan tersebut: ' . route('verification-report.index') . '. 
+                    $message = 'Ytg. '.$letter->penerima->jabatan . ' ' . $wilayah_asal_dandim.'. Kami ingin memberitahukan bahwa '. $letter->pembuat->jabatan . ' ' . $letter->wilayah_asal .' telah menyelesaikan laporan terbaru. Laporan ini memerlukan perhatian Anda segera untuk verifikasi lebih lanjut. Mohon klik link berikut untuk mengakses dan meninjau laporan tersebut: ' . route('verification-pengajuan.index') . '. 
                     Kami sangat menghargai waktu dan kerja sama Anda dalam memastikan informasi yang akurat dan langkah-langkah yang tepat dapat segera diambil. Terima kasih atas perhatiannya.';
                 }
 
                 $encoded_message = urlencode($message);
             @endphp
             <div class="flex items-center justify-end gap-2">
-                <a href="{{ route('report.show-other-index') }}" class="block btn-custom w-fit">Kembali</a>
-                {{-- <a {{ $report->laporan->status == 'publish' ? 'target="_BLANK" href="https://wa.me/' . $phone_number . '?text=' . $encoded_message . '" onclick="notification()"' : 'onclick="kirim_laporan()"' }} id="kirim-laporan" class="block btn-custom w-fit cursor-pointer">{{ $report->laporan->status == 'publish' ? 'Kirim Notifikasi' : 'Kirim Laporan' }}</a> --}}
-                <a @if ($report->laporan->status == 'publish') 
+                <a href="{{ route('pengajuan.show-other-index') }}" class="block btn-custom w-fit">Kembali</a>
+                {{-- <a {{ $letter->pengajuan->status == 'publish' ? 'target="_BLANK" href="https://wa.me/' . $phone_number . '?text=' . $encoded_message . '" onclick="notification()"' : 'onclick="kirim_pengajuan()"' }} id="kirim-pengajuan" class="block btn-custom w-fit cursor-pointer">{{ $letter->pengajuan->status == 'publish' ? 'Kirim Notifikasi' : 'Kirim pengajuan' }}</a> --}}
+                <a @if ($letter->pengajuan->status == 'publish') 
                         target="_BLANK" 
                         href="https://wa.me/{{ $phone_number }}?text={{ $encoded_message }}" 
                         onclick="notification()"
                     @else 
-                        onclick="kirim_laporan()" 
+                        onclick="kirim_pengajuan()" 
                     @endif 
-                    id="kirim-laporan" class="block btn-custom w-fit cursor-pointer">
-                    {{ $report->laporan->status == 'publish' ? 'Kirim Notifikasi' : 'Kirim Laporan' }}
+                    id="kirim-pengajuan" class="block btn-custom w-fit cursor-pointer">
+                    {{ $letter->pengajuan->status == 'publish' ? 'Kirim Notifikasi' : 'Kirim pengajuan' }}
                 </a>
             </div>
         </div>
@@ -67,26 +67,27 @@
 @push('script')
     <script src="https://cdn.datatables.net/2.0.7/js/dataTables.min.js"></script>
     <script type="text/javascript">
-        $('#table-list-laporan').DataTable({
+        $('#table-list-pengajuan').DataTable({
             order: [
                 [0, 'asc']
             ]
         });
 
-        function kirim_laporan() {
+        function kirim_pengajuan() {
             $.ajax({
-                url: '{{ route('report.other-document-completion-publish') }}',
+                url: '{{ route('post.other-document-pengajuan') }}',
                 type: 'POST',
                 data: {
                     _token: '{{ csrf_token() }}', // Token CSRF untuk keamanan
-                    id_laporan: '{{ $report->id_laporan }}'
+                    id_pengajuan: '{{ $letter->id_pengajuan }}'
                 },
                 success: function(response) {
+                    console.log(response);
                     if (response == 'berhasil') {
                         Swal.fire({
                             icon: 'success',
                             title: 'Berhasil',
-                            text: 'Laporan Berhasil Terkirim',
+                            text: 'pengajuan Berhasil Terkirim',
                             customClass: {
                                 confirmButton: 'btn-custom'
                             },
@@ -97,7 +98,7 @@
                         var encoded_message = "{{ $encoded_message }}";
                         var link = `https://wa.me/${phone_number}?text=${encoded_message}`;
 
-                        $('#kirim-laporan').attr({
+                        $('#kirim-pengajuan').attr({
                             'target': '_BLANK',
                             'href': link,
                             'onclick': 'notification()'
@@ -106,7 +107,7 @@
                         Swal.fire({
                             icon: 'error',
                             title: 'Terdapat Kesalahan',
-                            text: 'Laporan Gagal Terkirim',
+                            text: 'pengajuan Gagal Terkirim',
                             customClass: {
                                 confirmButton: 'btn-custom'
                             },

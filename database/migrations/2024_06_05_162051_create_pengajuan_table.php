@@ -17,7 +17,8 @@ class CreatePengajuanTable extends Migration
             $table->id()->autoIncrement();
             $table->string('jenis_pengajuan')->nullable(false);
             $table->string('judul_pengajuan')->nullable(false);
-            $table->enum('status', ['agree', 'disagree'])->nullable(false)->default('disagree');
+            $table->text('file_pengajuan')->nullable(true);
+            $table->enum('status', ['valid', 'publish', 'agree', 'disagree'])->nullable(false)->default('disagree');
             $table->timestamps();
         });
     }

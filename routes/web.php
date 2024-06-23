@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ListAnggotaController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\PengajuanController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\VerificationReportController;
 use Illuminate\Support\Facades\Route;
@@ -19,9 +20,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [PageController::class, 'login'])->name('index');
-Route::get('/login', [PageController::class, 'login'])->name('page.login');
-Route::post('/login/process', [AuthController::class, 'login'])->name('post.login');
 Route::post('/logout', [AuthController::class, 'logout'])->name('post.logout');
+Route::get('/coba-dokumen', [PengajuanController::class, 'contoh_report'])->name('pengajuan.generateReport');
+
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [PageController::class, 'login'])->name('page.login');
+    Route::post('/login/process', [AuthController::class, 'login'])->name('post.login');
+});
 
 // (level : semua level)
 Route::middleware('auth')->group(function () {
@@ -37,8 +42,6 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'level:babinsa,danramil'])->group(function () {
     Route::resource('/page/report', ReportController::class);
     Route::get('/download-report/{filename}', [ReportController::class, 'downloadReport'])->name('download.report');
-    // Route::get('/page/report/{report}/document', [ReportController::class, 'add_document'])->name('report.add_document');
-    // Route::get('/page/coba/{report}', [ReportController::class, 'generateReport'])->name('report.generateReport');
     Route::get('/page/show-index', [ReportController::class, 'show_index'])->name('report.show-index');
     Route::get('/page/show-other-index', [ReportController::class, 'show_other_index'])->name('report.show-other-index');
     Route::get('/page/show-other-index/{report}/document', [ReportController::class, 'other_document_completion'])->name('report.other-document-completion');
@@ -51,9 +54,18 @@ Route::middleware(['auth', 'level:danramil,dandim'])->group(function () {
     Route::resource('/verification-report', VerificationReportController::class);
 });
 
+// Report (level : dandim)
+Route::middleware(['auth', 'level:dandim'])->group(function () {
+    // Verification Report
+    Route::resource('/verification-pengajuan', VerificationReportController::class);
+});
+
 // Letter (level : staf)
 Route::middleware(['auth', 'level:staf'])->group(function () {
-    Route::get('/page/create-letter', [PageController::class, 'create_letter'])->name('page.create-letter');
-    Route::get('/page/show-letter', [PageController::class, 'show_letter'])->name('page.show-letter');
-    Route::get('/page/show-other-document-letter', [PageController::class, 'show_other_document_letter'])->name('page.show-other-document-letter');
+    Route::resource('/page/pengajuan', PengajuanController::class);
+    Route::get('/page/show-index-pengajuan', [PengajuanController::class, 'show_index'])->name('pengajuan.show-index');
+    Route::get('/page/show-other-index-pengajuan', [PengajuanController::class, 'show_other_index'])->name('pengajuan.show-other-index');
+    Route::get('/page/show-other-index-pengajuan/{pengajuan}/document', [PengajuanController::class, 'show_other_document'])->name('pengajuan.other-document-pengajuan');
+    Route::POST('/page/show-other-index-pengajuan/document/publish', [PengajuanController::class, 'post_show_other_document'])->name('post.other-document-pengajuan');
+    Route::get('/download-pengajuan/{filename}', [PengajuanController::class, 'downloadPengajuan'])->name('download.pengajuan');
 });

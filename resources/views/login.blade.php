@@ -20,7 +20,7 @@
     </head>
 
     <body>
-        <div class="container mx-auto">
+        <div class="mx-auto max-w-screen-2xl">
             <div class="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1">
                 <div class="flex items-center justify-center flex-col h-screen bg-custom-green-500">
                     <img class="w-[120px] h-[auto] lg:hidden md:hidden sm:hidden block" loading="eager" src="{{ asset('images/logo/logo.png') }}" alt="Logo Kesatria Pantang Menyerah">

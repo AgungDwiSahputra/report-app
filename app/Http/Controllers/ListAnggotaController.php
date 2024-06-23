@@ -26,13 +26,19 @@ class ListAnggotaController extends Controller
         $namePage = $this->kebabToTitleCase($page);
 
         $user = auth()->user();
-        $pengguna = Pengguna::where('level', '!=', 'admin')->where('id', '!=', $user->id);
+        $pengguna = Pengguna::where('level', '!=', 'admin')->where('id', '!=', $user->id)->get();
 
-        if (in_array($user->level, ['babinsa', 'danramil', 'dandim', 'staf'])) {
-            $pengguna->where('level', $user->level);
-        }
+        // Sort by level
+        $sortLevel = ['dandim', 'staf', 'danramil', 'babinsa'];
+        $pengguna = $pengguna->sortBy(function ($pengguna) use ($sortLevel) {
+            return array_search($pengguna->level, $sortLevel);
+        });
 
-        $pengguna = $pengguna->get();
+        // if (in_array($user->level, ['babinsa', 'danramil', 'dandim', 'staf'])) {
+        //     $pengguna->where('level', $user->level);
+        // }
+
+        // $pengguna = $pengguna->get();
 
         $data = [
             'title' => 'SIKOM1416 | ' . $namePage,

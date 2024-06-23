@@ -17,20 +17,13 @@
         </div>
         <div class="p-8">
             <div class="w-2/4 bg-custom-green-500 p-4 -ml-9 rounded-md shadow-md">
-                <span class="block text-bold text-white">ID Laporan: ***** / No. {{ $report->id_laporan }}</span>
+                <span class="block text-bold text-white">ID Laporan: {{ $report->id_laporan }} / No. RI/{{ $report->laporan->id }}/LSH/{{ date('Y') }}/{{ $report->pembuat->jabatan . " " . $report->wilayah_asal }}</span>
                 <span class="block text-bold text-white">Laporan: {{ $report->laporan->judul_laporan }}</span>
             </div>
 
             <div id="document-view" class="my-10">
                 <iframe src="{{ url('storage/document/report/' . $report->laporan->file_laporan) }}" width="100%" height="600px"></iframe>
             </div>
-
-            @php
-                // Cek jika angka pertama adalah 0, ganti dengan 62
-                if (substr($report->penerima->no_telp, 0, 1) === '0') {
-                    $phone_number = '62' . substr($report->penerima->no_telp, 1);
-                }
-            @endphp
             <form action="{{ route('verification-report.update', $report->laporan->id) }}" method="POST">
                 @method('PUT')
                 @csrf
