@@ -72,7 +72,7 @@ class Controller extends BaseController
 
     public function generatePengajuan($id_pengajuan)
     {
-        $data = DetailPengajuan::with(['pengajuan', 'pembuat', 'penerima'])
+        $data = DetailPengajuan::with(['pengajuan', 'pembuat', 'penerima', 'perintah'])
             ->whereHas('pengajuan', function ($query) use ($id_pengajuan) {
                 $query->where('id', $id_pengajuan);
             })->first();
@@ -81,6 +81,23 @@ class Controller extends BaseController
             ->setTimezone('Asia/Makassar')
             // ->translatedFormat('l, d F Y');
             ->translatedFormat('d F Y');
+        $data->pengajuan->tanggal_romawi = Carbon::parse($data->pengajuan->updated_at)->translatedFormat('n');
+        $tanggal_romawi = array(
+            1 => 'I', 
+            2 => 'II', 
+            3 => 'III', 
+            4 => 'IV', 
+            5 => 'V', 
+            6 => 'VI', 
+            7 => 'VII', 
+            8 => 'VIII', 
+            9 => 'IX', 
+            10 => 'X', 
+            11 => 'XI', 
+            12 => 'XII'
+        );
+        $data->pengajuan->tanggal_romawi = $tanggal_romawi[$data->pengajuan->tanggal_romawi];
+
         $data->pengajuan->waktu_buat = Carbon::parse($data->pengajuan->created_at)->setTimezone('Asia/Makassar')->translatedFormat('H.i');
 
         // $data->lampiran = explode(',', $data->lampiran);

@@ -17,7 +17,7 @@
         </div>
         <div class="p-8">
             <div class="w-2/4 bg-custom-green-500 p-4 -ml-9 rounded-md shadow-md">
-                <span class="block text-bold text-white">ID Surat: {{ $letter->id_pengajuan }} / No. RI/{{ $letter->pengajuan->id }}/LSH/{{ date('Y') }}/{{ $letter->pembuat->jabatan . " " . $letter->wilayah_asal }}</span>
+                <span class="block text-bold text-white">ID Surat: {{ $letter->id_pengajuan }} / No. Sprin/{{ $letter->pengajuan->id }}/{{ $letter->pengajuan->tanggal_romawi }}/{{ date('Y') }}</span>
                 <span class="block text-bold text-white">Surat: {{ $letter->pengajuan->judul_pengajuan }}</span>
             </div>
 

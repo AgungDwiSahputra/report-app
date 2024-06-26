@@ -32,7 +32,7 @@
                                     <path d="M5.082 14.254a8.287 8.287 0 0 0-1.308 5.135 9.687 9.687 0 0 1-1.764-.44l-.115-.04a.563.563 0 0 1-.373-.487l-.01-.121a3.75 3.75 0 0 1 3.57-4.047ZM20.226 19.389a8.287 8.287 0 0 0-1.308-5.135 3.75 3.75 0 0 1 3.57 4.047l-.01.121a.563.563 0 0 1-.373.486l-.115.04c-.567.2-1.156.349-1.764.441Z" />
                                 </svg>
                             </span>
-                            <input readonly value="{{ $letter->pembuat->nama_lengkap }}" placeholder="Dibuat Oleh" type="text" name="dibuat_oleh" id="dibuat_oleh" class="w-full h-10 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500 sm:text-md">
+                            <input readonly value="{{ $letter->pembuat->jabatan }}" placeholder="Dibuat Oleh" type="text" name="dibuat_oleh" id="dibuat_oleh" class="w-full h-10 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500 sm:text-md">
                         </div>
                     </div>
                     <!-- Diterima Oleh -->
@@ -49,7 +49,7 @@
                             <select id="diterima_oleh" name="diterima_oleh" class="w-full h-10 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500 sm:text-md">
                                 <option value="">-- PILIH --</option>
                                     @foreach($pengguna as $data)
-                                        <option value="{{ $data->id }}" {{ $letter->penerima->id == $data->id ? 'selected' : '' }}>{{ $data->nama_lengkap }}</option>
+                                        <option value="{{ $data->id }}" {{ $letter->penerima->id == $data->id ? 'selected' : '' }}>{{ $data->jabatan }}</option>
                                     @endforeach
                             </select>
                         </div>
@@ -96,13 +96,14 @@
                             </span>
                             <select id="wilayah_asal" name="wilayah_asal" class="w-full h-10 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500 sm:text-md">
                                 <option value="">-- PILIH --</option>
-                                <option value="Koramil 1416-01/Katobu" {{ $letter->wilayah_asal == 'Koramil 1416-01/Katobu' ? 'selected' : '' }}>Koramil 1416-01/Katobu</option>
+                                <option value="Kodim 1416/Muna" selected>Kodim 1416/Muna</option>
+                                {{-- <option value="Koramil 1416-01/Katobu" {{ $letter->wilayah_asal == 'Koramil 1416-01/Katobu' ? 'selected' : '' }}>Koramil 1416-01/Katobu</option>
                                 <option value="Koramil 1416-02/Tikep" {{ $letter->wilayah_asal == 'Koramil 1416-02/Tikep' ? 'selected' : '' }}>Koramil 1416-02/Tikep</option>
                                 <option value="Koramil 1416-03/Tongkuno" {{ $letter->wilayah_asal == 'Koramil 1416-03/Tongkuno' ? 'selected' : '' }}>Koramil 1416-03/Tongkuno</option>
                                 <option value="Koramil 1416-04/Kabawo" {{ $letter->wilayah_asal == 'Koramil 1416-04/Kabawo' ? 'selected' : '' }}>Koramil 1416-04/Kabawo</option>
                                 <option value="Koramil 1416-05/Maligano" {{ $letter->wilayah_asal == 'Koramil 1416-05/Maligano' ? 'selected' : '' }}>Koramil 1416-05/Maligano</option>
                                 <option value="Koramil 1416-06/Lawa" {{ $letter->wilayah_asal == 'Koramil 1416-06/Lawa' ? 'selected' : '' }}>Koramil 1416-06/Lawa</option>
-                                <option value="Koramil 1416-07/Tampo" {{ $letter->wilayah_asal == 'Koramil 1416-07/Tampo' ? 'selected' : '' }}>Koramil 1416-07/Tampo</option>
+                                <option value="Koramil 1416-07/Tampo" {{ $letter->wilayah_asal == 'Koramil 1416-07/Tampo' ? 'selected' : '' }}>Koramil 1416-07/Tampo</option> --}}
                             </select>
                         </div>
                     </div>
@@ -145,7 +146,15 @@
                                     <path fill-rule="evenodd" d="M6 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3H6Zm1.5 1.5a.75.75 0 0 0-.75.75V16.5a.75.75 0 0 0 1.085.67L12 15.089l4.165 2.083a.75.75 0 0 0 1.085-.671V5.25a.75.75 0 0 0-.75-.75h-9Z" clip-rule="evenodd" />
                                 </svg>
                             </span>
-                            <input value="{{ $letter->diperintahkan_kepada }}" placeholder="Diperintahkan Kepada" type="text" name="diperintahkan_kepada" id="diperintahkan_kepada" class="w-full h-10 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500 sm:text-md">
+                            <select id="diperintahkan_kepada" name="diperintahkan_kepada" class="w-full h-10 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500 sm:text-md">
+                                <option value="">-- PILIH --</option>
+                                @foreach($penggunaPerintah as $data)
+                                    @if($data->level != 'admin' && $data->level != 'dandim')
+                                        <option value="{{ $data->id }}" {{ $letter->diperintahkan_kepada == $data->id ? 'selected' : '' }}>{{ $data->nama_lengkap }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                            {{-- <input value="{{ $letter->diperintahkan_kepada }}" placeholder="Diperintahkan Kepada" type="text" name="diperintahkan_kepada" id="diperintahkan_kepada" class="w-full h-10 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500 sm:text-md"> --}}
                         </div>
                     </div>
 

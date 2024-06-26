@@ -20,13 +20,14 @@ class CreateDetailPengajuanTable extends Migration
             $table->bigInteger('diterima_oleh')->unsigned();
             $table->string('wilayah_asal')->nullable(false);
             $table->text('deskripsi')->nullable(false);
-            $table->string('diperintahkan_kepada')->nullable(false);
+            $table->bigInteger('diperintahkan_kepada')->unsigned();
             $table->string('tembusan')->nullable(false);
             $table->timestamps();
 
             $table->foreign('id_pengajuan')->references('id')->on('pengajuan');
             $table->foreign('dibuat_oleh')->references('id')->on('pengguna');
             $table->foreign('diterima_oleh')->references('id')->on('pengguna');
+            $table->foreign('diperintahkan_kepada')->references('id')->on('pengguna');
         });
     }
 

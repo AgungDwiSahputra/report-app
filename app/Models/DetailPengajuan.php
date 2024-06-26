@@ -39,4 +39,10 @@ class DetailPengajuan extends Model
     {
         return $this->belongsTo(Pengguna::class, 'diterima_oleh');
     }
+
+    // Relasi ke model Pengguna untuk diterima_oleh
+    public function perintah()
+    {
+        return $this->belongsTo(Pengguna::class, 'diperintahkan_kepada');
+    }
 }

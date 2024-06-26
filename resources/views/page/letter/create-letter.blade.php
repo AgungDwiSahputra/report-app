@@ -13,7 +13,7 @@
 @section('content')
     <div class="lg:w-10/12 w-11/12 bg-white rounded-2xl lg:mt-[100px] lg:ml-[100px] mt-[55px] ml-[10px] mr-6 mb-6">
         <div id="box-heading" class="bg-custom-green-700 rounded-t-2xl py-3 px-5">
-            <h1 class="text-2xl text-white font-bold">Buat Form Laporan</h1>
+            <h1 class="text-2xl text-white font-bold">Buat Form Pengajuan</h1>
         </div>
 
         <div class="p-8">
@@ -37,7 +37,7 @@
                                     <option value="danramil01">Danramil 01</option>
                                     <option value="danramil02">Danramil 02</option>
                                 </select> --}}
-                                <input readonly value="{{ $user->nama_lengkap }}" placeholder="Dibuat Oleh" type="text" name="dibuat_oleh" id="dibuat_oleh" class="w-full h-10 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500 sm:text-md">
+                                <input readonly value="{{ $user->jabatan }}" placeholder="Dibuat Oleh" type="text" name="dibuat_oleh" id="dibuat_oleh" class="w-full h-10 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500 sm:text-md">
                             </div>
                         </div>
                         <!-- Diterima Oleh -->
@@ -54,7 +54,7 @@
                                 <select id="diterima_oleh" name="diterima_oleh" class="w-full h-10 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500 sm:text-md">
                                     <option value="">-- PILIH --</option>
                                     @foreach($pengguna as $data)
-                                        <option value="{{ $data->id }}">{{ $data->nama_lengkap }}</option>
+                                        <option value="{{ $data->id }}" selected>{{ $data->jabatan }} 1416/Muna</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -96,7 +96,7 @@
 
                         <!-- Deskripsi -->
                         <div class="mb-2">
-                            <label for="deskripsi" class="text-black text-sm font-bold">Deskripsi Kagiatan</label>
+                            <label for="deskripsi" class="text-black text-sm font-bold">Deskripsi</label>
                             <div class="flex items-center border border-gray-300 rounded-lg overflow-hidden focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500">
                                 <span class="inline-flex items-center px-3 border-r-1 border-solid border-gray-300">
                                     <!-- SVG Ikon -->
@@ -121,13 +121,14 @@
                                 </span>
                                 <select id="wilayah_asal" name="wilayah_asal" class="w-full h-10 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500 sm:text-md">
                                     <option value="">-- PILIH --</option>
-                                    <option value="Koramil 1416-01/Katobu">Koramil 1416-01/Katobu</option>
+                                    <option value="Kodim 1416/Muna" selected>Kodim 1416/Muna</option>
+                                    {{-- <option value="Koramil 1416-01/Katobu">Koramil 1416-01/Katobu</option>
                                     <option value="Koramil 1416-02/Tikep">Koramil 1416-02/Tikep</option>
                                     <option value="Koramil 1416-03/Tongkuno">Koramil 1416-03/Tongkuno</option>
                                     <option value="Koramil 1416-04/Kabawo">Koramil 1416-04/Kabawo</option>
                                     <option value="Koramil 1416-05/Maligano">Koramil 1416-05/Maligano</option>
                                     <option value="Koramil 1416-06/Lawa">Koramil 1416-06/Lawa</option>
-                                    <option value="Koramil 1416-07/Tampo">Koramil 1416-07/Tampo</option>
+                                    <option value="Koramil 1416-07/Tampo">Koramil 1416-07/Tampo</option> --}}
                                 </select>
                             </div>
                         </div>
@@ -156,7 +157,15 @@
                                         <path fill-rule="evenodd" d="M6 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3H6Zm1.5 1.5a.75.75 0 0 0-.75.75V16.5a.75.75 0 0 0 1.085.67L12 15.089l4.165 2.083a.75.75 0 0 0 1.085-.671V5.25a.75.75 0 0 0-.75-.75h-9Z" clip-rule="evenodd" />
                                     </svg>
                                 </span>
-                                <input value="{{ old('diperintahkan_kepada') }}" placeholder="Diperintahkan Kepada" type="text" name="diperintahkan_kepada" id="diperintahkan_kepada" class="w-full h-10 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500 sm:text-md">
+                                <select id="diperintahkan_kepada" name="diperintahkan_kepada" class="w-full h-10 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500 sm:text-md">
+                                    <option value="">-- PILIH --</option>
+                                    @foreach($penggunaPerintah as $data)
+                                        @if($data->level != 'admin' && $data->level != 'dandim')
+                                            <option value="{{ $data->id }}">{{ $data->nama_lengkap }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                                {{-- <input value="{{ old('diperintahkan_kepada') }}" placeholder="Diperintahkan Kepada" type="text" name="diperintahkan_kepada" id="diperintahkan_kepada" class="w-full h-10 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500 sm:text-md"> --}}
                             </div>
                         </div>
 

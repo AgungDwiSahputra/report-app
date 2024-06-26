@@ -73,6 +73,7 @@ class PengajuanController extends Controller
         $namePage = $this->kebabToTitleCase($page);
 
         $pengguna = Pengguna::where('level', '=', 'dandim')->get();
+        $penggunaPerintah = Pengguna::get();
 
         $data = [
             'title' => 'SIKOM1416 | ' . $namePage,
@@ -81,6 +82,7 @@ class PengajuanController extends Controller
 
             'user' => auth()->user(),
             'pengguna' => $pengguna,
+            'penggunaPerintah' => $penggunaPerintah,
         ];
 
         return view('page.letter.create-letter', $data);
@@ -190,6 +192,7 @@ class PengajuanController extends Controller
         $letters = DetailPengajuan::with(['pengajuan', 'pembuat', 'penerima'])
             ->whereHas('pengajuan', function ($query) {
                 $query->where('status', 'agree')
+                    ->orWhere('status', 'valid')
                     ->orWhere('status', 'publish');
             })->where('dibuat_oleh', auth()->user()->id)->get();
 
@@ -219,6 +222,23 @@ class PengajuanController extends Controller
             ->whereHas('pengajuan', function ($query) use ($id_pengajuan) {
                 $query->where('id', $id_pengajuan);
             })->where('dibuat_oleh', auth()->user()->id)->first();
+
+        $letter->pengajuan->tanggal_romawi = Carbon::parse($letter->pengajuan->updated_at)->translatedFormat('n');
+        $tanggal_romawi = array(
+            1 => 'I', 
+            2 => 'II', 
+            3 => 'III', 
+            4 => 'IV', 
+            5 => 'V', 
+            6 => 'VI', 
+            7 => 'VII', 
+            8 => 'VIII', 
+            9 => 'IX', 
+            10 => 'X', 
+            11 => 'XI', 
+            12 => 'XII'
+        );
+        $letter->pengajuan->tanggal_romawi = $tanggal_romawi[$letter->pengajuan->tanggal_romawi];
 
         $data = [
             'title' => 'SIKOM1416 | ' . $namePage,
@@ -256,6 +276,7 @@ class PengajuanController extends Controller
         $namePage = $this->kebabToTitleCase($page);
 
         $pengguna = Pengguna::where('level', '=', 'dandim')->get();
+        $penggunaPerintah = Pengguna::get();
 
         $letter = DetailPengajuan::with([
             'pengajuan', 'pembuat', 'penerima'
@@ -272,6 +293,7 @@ class PengajuanController extends Controller
 
             'user' => auth()->user(),
             'pengguna' => $pengguna,
+            'penggunaPerintah' => $penggunaPerintah,
             'letter' => $letter,
             'lampiran' => $lampiran,
         ];
