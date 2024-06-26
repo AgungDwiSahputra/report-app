@@ -108,6 +108,7 @@ class PengajuanController extends Controller
             'tanggal_dibuat' => 'required',
             'deskripsi' => 'required',
             'diperintahkan_kepada' => 'required',
+            'dasar_perintah' => 'required',
             'tembusan' => 'required',
         ], [
             'dibuat_oleh.required' => 'Kolom dibuat oleh wajib diisi.',
@@ -118,6 +119,7 @@ class PengajuanController extends Controller
             'tanggal_dibuat.required' => 'Kolom tanggal dibuat wajib diisi.',
             'deskripsi.required' => 'Kolom deskripsi wajib diisi.',
             'diperintahkan_kepada.required' => 'Kolom diperintahkan kepada wajib diisi.',
+            'dasar_perintah.required' => 'Kolom dasar perintah wajib diisi.',
             'tembusan.required' => 'Kolom tembusan wajib diisi.',
         ]);
 
@@ -137,6 +139,7 @@ class PengajuanController extends Controller
             $detailPengajuan->wilayah_asal = $request->wilayah_asal;
             $detailPengajuan->deskripsi = $request->deskripsi;
             $detailPengajuan->diperintahkan_kepada = $request->diperintahkan_kepada;
+            $detailPengajuan->dasar_perintah = $request->dasar_perintah;
             $detailPengajuan->tembusan = $request->tembusan;
             $detailPengajuan->save();
 
@@ -331,6 +334,7 @@ class PengajuanController extends Controller
             'tanggal_dibuat' => 'required',
             'deskripsi' => 'required',
             'diperintahkan_kepada' => 'required',
+            'dasar_perintah' => 'required',
             'tembusan' => 'required',
         ], [
             'dibuat_oleh.required' => 'Kolom dibuat oleh wajib diisi.',
@@ -341,6 +345,7 @@ class PengajuanController extends Controller
             'tanggal_dibuat.required' => 'Kolom tanggal dibuat wajib diisi.',
             'deskripsi.required' => 'Kolom deskripsi wajib diisi.',
             'diperintahkan_kepada.required' => 'Kolom diperintahkan kepada wajib diisi.',
+            'dasar_perintah.required' => 'Kolom dasar perintah wajib diisi.',
             'tembusan.required' => 'Kolom tembusan wajib diisi.',
         ]);
 
@@ -360,6 +365,7 @@ class PengajuanController extends Controller
             $detailPengajuan->wilayah_asal = $request->wilayah_asal;
             $detailPengajuan->deskripsi = $request->deskripsi;
             $detailPengajuan->diperintahkan_kepada = $request->diperintahkan_kepada;
+            $detailPengajuan->dasar_perintah = $request->dasar_perintah;
             $detailPengajuan->tembusan = $request->tembusan;
             $detailPengajuan->save();
             

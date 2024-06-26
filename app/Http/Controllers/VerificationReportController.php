@@ -26,6 +26,7 @@ class VerificationReportController extends Controller
         $reports = DetailLaporan::with(['laporan', 'pembuat', 'penerima'])
             ->whereHas('laporan', function ($query) {
                 $query->where('status', 'publish')
+                    ->orWhere('status', 'not-verify')
                     ->orWhere('status', 'verification');
             })->where('diterima_oleh', auth()->user()->id)->get();
 
@@ -125,7 +126,7 @@ class VerificationReportController extends Controller
 
         try {
             // Simpan data ke tabel laporan
-            $laporan->status = 'verification';
+            $laporan->status = $request->tindakan;
             $laporan->save();
             return redirect()->route('verification-report.index')->with('success', 'Berhasil Verifikasi Laporan');
         } catch (\Exception $e) {

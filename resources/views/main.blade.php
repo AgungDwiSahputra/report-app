@@ -64,9 +64,11 @@
                                     @if (auth()->user()->level == 'dandim')
                                         <li class="list-navbar hover:bg-custom-green-700 {{ $page == 'verification-pengajuan' ? 'bg-custom-green-700' : '' }}"><a href="{{ route('verification-pengajuan.index') }}" class="block h-full w-full py-4 pl-11 pr-7">Verifikasi Pengajuan</a></li>
                                     @endif
-                                    <li class="list-navbar hover:bg-custom-green-700 {{ $page == 'pengajuan' ? 'bg-custom-green-700' : '' }}"><a href="{{ route('pengajuan.index') }}" class="block h-full w-full py-4 pl-11 pr-7">Buat Surat</a></li>
-                                    <li class="list-navbar hover:bg-custom-green-700 {{ $page == 'show-index-pengajuan' ? 'bg-custom-green-700' : '' }}"><a href="{{ route('pengajuan.show-index') }}" class="block h-full w-full py-4 pl-11 pr-7">Lihat & Validasi</a></li>
-                                    <li class="list-navbar hover:bg-custom-green-700 {{ $page == 'show-other-index-pengajuan' ? 'bg-custom-green-700' : '' }}"><a href="{{ route('pengajuan.show-other-index') }}" class="block h-full w-full py-4 pl-11 pr-7">Kelengkapan Dokumen</a></li>
+                                    @if (auth()->user()->level != 'dandim')
+                                        <li class="list-navbar hover:bg-custom-green-700 {{ $page == 'pengajuan' ? 'bg-custom-green-700' : '' }}"><a href="{{ route('pengajuan.index') }}" class="block h-full w-full py-4 pl-11 pr-7">Buat Surat</a></li>
+                                        <li class="list-navbar hover:bg-custom-green-700 {{ $page == 'show-index-pengajuan' ? 'bg-custom-green-700' : '' }}"><a href="{{ route('pengajuan.show-index') }}" class="block h-full w-full py-4 pl-11 pr-7">Lihat & Validasi</a></li>
+                                        <li class="list-navbar hover:bg-custom-green-700 {{ $page == 'show-other-index-pengajuan' ? 'bg-custom-green-700' : '' }}"><a href="{{ route('pengajuan.show-other-index') }}" class="block h-full w-full py-4 pl-11 pr-7">Kelengkapan Dokumen</a></li>
+                                    @endif
                                 </ul>
                             </li>
                         @endif

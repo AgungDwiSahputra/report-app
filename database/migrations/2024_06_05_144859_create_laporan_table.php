@@ -18,7 +18,7 @@ class CreateLaporanTable extends Migration
             $table->string('jenis_laporan')->nullable(false);
             $table->string('judul_laporan')->nullable(false);
             $table->text('file_laporan')->nullable(true);
-            $table->enum('status', ['verification','publish', 'valid', 'invalid'])->nullable(false)->default('invalid');
+            $table->enum('status', ['not-verify','verification','publish', 'valid', 'invalid'])->nullable(false)->default('invalid');
             $table->timestamps();
         });
     }

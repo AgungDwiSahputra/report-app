@@ -66,10 +66,11 @@
                         <td style="vertical-align: top;width: 100px">Dasar</td>
                         <td style="vertical-align: top;">:</td>
                         <td style="vertical-align: top;">
-                            <ol type="1" style="padding-left: 15px;margin:1px">
+                            {!! $data->dasar_perintah !!}
+                            {{-- <ol type="1" style="padding-left: 15px;margin:1px">
                                 <li>Surat keputusan Dandim 1416/Muna Nomor Kep/01/I/2020 tentang hukuman disiplin a.n. {{ $data->perintah->nama_lengkap }}, NRP {{ $data->perintah->NRP . ' ' . $data->pembuat->jabatan . ' ' . $data->wilayah_asal}} Rem 143/HO telah melakukan tindakan pelanggaran disiplin, tidak mengindahkan arahan pimpinan untuk membina rumah tangganya;</li>
                                 <li>Pasal 8 huruf a dan pasal 9 huruf b Undang Undang Nomor 25 Tahun 2014 dan peraturan perundang undangan lain yang berkaitan.</li>
-                            </ol>
+                            </ol> --}}
                         </td>
                     </tr>
                 </tbody>

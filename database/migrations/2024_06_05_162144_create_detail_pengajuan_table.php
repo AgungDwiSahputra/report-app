@@ -21,6 +21,7 @@ class CreateDetailPengajuanTable extends Migration
             $table->string('wilayah_asal')->nullable(false);
             $table->text('deskripsi')->nullable(false);
             $table->bigInteger('diperintahkan_kepada')->unsigned();
+            $table->text('dasar_perintah')->nullable(false);
             $table->string('tembusan')->nullable(false);
             $table->timestamps();
 
