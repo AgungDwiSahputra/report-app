@@ -19,7 +19,7 @@
             @if(auth()->user()->level == 'admin')
                 <a href="{{ route('list-anggota.create') }}" type="button" class="btn-custom mb-8">+ Tambah Anggota</a>
             @endif
-            <table id="table-list-laporan" class="w-full table-auto display">
+            <table id="table-list-laporan" class="w-full table-auto display" style="width: 100%">
                 <thead class="bg-custom-green-600 text-white">
                     <tr>
                         <th>No.</th>

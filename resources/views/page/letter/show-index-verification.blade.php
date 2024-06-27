@@ -16,7 +16,7 @@
             <h1 class="text-2xl text-white font-bold">Verifikasi Pengajuan</h1>
         </div>
         <div class="p-8">
-            <table id="table-list-pengajuan" class="w-full table-auto display">
+            <table id="table-list-pengajuan" class="w-full table-auto display" style="width: 100%">
                 <thead class="bg-custom-green-600 text-white">
                     <tr>
                         <th>ID Surat</th>

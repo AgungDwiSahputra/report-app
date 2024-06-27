@@ -310,7 +310,7 @@
                     <button type="simpan" class="btn-custom mt-3">Simpan</button>
                 </div>
                 <div class="w-full overflow-x-auto">
-                    <table id="table-list-laporan" class="w-full table-auto display">
+                    <table id="table-list-laporan" class="w-full table-auto display" style="width: 100%">
                         <thead class="bg-custom-green-600 text-white">
                             <tr>
                                 <th class="w-40">No. Laporan</th>
