@@ -20,12 +20,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [PageController::class, 'login'])->name('index');
 Route::post('/logout', [AuthController::class, 'logout'])->name('post.logout');
 Route::get('/forgot-password', [PageController::class, 'forgot_password'])->name('page.forgot-password');
 Route::get('/coba-dokumen', [PengajuanController::class, 'contoh_report'])->name('pengajuan.generateReport');
 
 Route::middleware('guest')->group(function () {
+    Route::get('/', [PageController::class, 'login'])->name('index');
     Route::get('/login', [PageController::class, 'login'])->name('page.login');
     Route::post('/login/process', [AuthController::class, 'login'])->name('post.login');
 });

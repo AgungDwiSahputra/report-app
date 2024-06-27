@@ -11,7 +11,7 @@
 @endpush
 
 @section('content')
-    <div class="w-10/12 bg-white rounded-2xl mt-[100px] ml-[100px] mr-6 mb-6">
+    <div class="lg:w-10/12 w-11/12 bg-white rounded-2xl lg:mt-[100px] mt-[60px] lg:ml-[100px] mx-auto mr-6 mb-6">
         <div id="box-heading" class="bg-custom-green-700 rounded-t-2xl py-3 px-5">
             <h1 class="text-2xl text-white font-bold">Lihat & Validasi</h1>
         </div>
@@ -89,6 +89,7 @@
     <script src="https://cdn.datatables.net/2.0.7/js/dataTables.min.js"></script>
     <script type="text/javascript">
         $('#table-list-laporan').DataTable({
+            scrollX: true,
             order: [
                 [0, 'asc']
             ]
