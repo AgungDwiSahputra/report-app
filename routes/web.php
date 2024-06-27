@@ -5,6 +5,7 @@ use App\Http\Controllers\ListAnggotaController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PengajuanController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\VerificationPengajuanController;
 use App\Http\Controllers\VerificationReportController;
 use Illuminate\Support\Facades\Route;
 
@@ -57,7 +58,7 @@ Route::middleware(['auth', 'level:danramil,dandim'])->group(function () {
 // Report (level : dandim)
 Route::middleware(['auth', 'level:dandim'])->group(function () {
     // Verification Report
-    Route::resource('/verification-pengajuan', VerificationReportController::class);
+    Route::resource('/verification-pengajuan', VerificationPengajuanController::class);
 });
 
 // Letter (level : staf)
