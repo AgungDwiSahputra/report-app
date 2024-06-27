@@ -128,7 +128,12 @@ class VerificationReportController extends Controller
             // Simpan data ke tabel laporan
             $laporan->status = $request->tindakan;
             $laporan->save();
-            return redirect()->route('verification-report.index')->with('success', 'Berhasil Verifikasi Laporan');
+
+            if($request->tindakan == 'verification'){
+                return redirect()->route('verification-report.index')->with('success', 'Berhasil Verifikasi Laporan');
+            }else{
+                return redirect()->route('verification-report.index')->with('success', 'Berhasil Menolak Laporan');
+            }
         } catch (\Exception $e) {
             return redirect()->route('verification-report.edit', $laporan->id)->with('error', 'Terdapat kesalahan : ' . $e);
         }
