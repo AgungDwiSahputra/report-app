@@ -70,7 +70,7 @@
                                     <option value="">-- PILIH --</option>
                                     @foreach($pengguna as $data)
                                         @if($data->level == "dandim")
-                                            <option value="{{ $data->id }}" selected>{{ $data->jabatan }} 1416/Muna</option>
+                                            <option value="{{ $data->id }}" selected>{{ $data->jabatan }}</option>
                                         @endif
                                     @endforeach
                                 </select>
