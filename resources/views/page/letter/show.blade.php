@@ -191,7 +191,7 @@
                     <div class="mb-2">
                         <label for="editor" class="text-black text-sm font-bold">Dasar Perintah</label>
                         <textarea rows="5" name="dasar_perintah" id="editor" class="w-full h-10 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500 sm:text-md">
-                            {{ old('dasar_perintah', $data->dasar_perintah) }}
+                            {{ old('dasar_perintah', $letter->dasar_perintah) }}
                         </textarea>
                     </div>
                 </div>
