@@ -35,7 +35,7 @@
                         <tr>
                             <td>{{ $key+1 }}</td>
                             <td>{{ $data->nama_lengkap }}</td>
-                            <td>{{ ucfirst($data->level) }}</td>
+                            <td>{{ $data->jabatan }}</td>
                             <td>{{ $data->NRP }}</td>
                             <td>{{ $data->penempatan }}</td>
                             <td class="flex items-center justify-center">
