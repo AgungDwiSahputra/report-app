@@ -42,9 +42,15 @@ class ReportController extends Controller
         $page = last(explode('/', $currentUrl));
         $namePage = $this->kebabToTitleCase($page);
 
-        $reports = DetailLaporan::with([
-            'laporan', 'pembuat', 'penerima'
-        ])->where('dibuat_oleh', auth()->user()->id)->get();
+        if(auth()->user()->level == 'admin'){
+            $reports = DetailLaporan::with([
+                'laporan', 'pembuat', 'penerima'
+            ])->get();
+        }else{
+            $reports = DetailLaporan::with([
+                'laporan', 'pembuat', 'penerima'
+            ])->where('dibuat_oleh', auth()->user()->id)->get();
+        }
 
         foreach ($reports as $report) {
             $report->laporan->tanggal_buat = Carbon::parse($report->laporan->created_at)->translatedFormat('d F Y');
@@ -230,9 +236,15 @@ class ReportController extends Controller
         $page = last(explode('/', $currentUrl));
         $namePage = $this->kebabToTitleCase($page);
 
-        $reports = DetailLaporan::with([
-            'laporan', 'pembuat', 'penerima'
-        ])->where('dibuat_oleh', auth()->user()->id)->get();
+        if(auth()->user()->level == 'admin'){
+            $reports = DetailLaporan::with([
+                'laporan', 'pembuat', 'penerima'
+            ])->get();
+        }else{
+            $reports = DetailLaporan::with([
+                'laporan', 'pembuat', 'penerima'
+            ])->where('dibuat_oleh', auth()->user()->id)->get();
+        }
 
         foreach ($reports as $report) {
             $report->laporan->tanggal_buat = Carbon::parse($report->laporan->created_at)->translatedFormat('d F Y');
@@ -259,9 +271,15 @@ class ReportController extends Controller
 
         $pengguna = Pengguna::where('level', '!=', 'admin')->get();
 
-        $report = DetailLaporan::with([
-            'laporan', 'pembuat', 'penerima'
-        ])->where('id_laporan', $id)->where('dibuat_oleh', auth()->user()->id)->first();
+        if(auth()->user()->level == 'admin'){
+            $report = DetailLaporan::with([
+                'laporan', 'pembuat', 'penerima'
+            ])->where('id_laporan', $id)->first();
+        }else{
+            $report = DetailLaporan::with([
+                'laporan', 'pembuat', 'penerima'
+            ])->where('id_laporan', $id)->where('dibuat_oleh', auth()->user()->id)->first();
+        }
 
         $report->laporan->tanggal_buat = Carbon::parse($report->laporan->created_at)->translatedFormat('Y-m-d');
 
@@ -290,12 +308,21 @@ class ReportController extends Controller
         $page = last(explode('/', $currentUrl));
         $namePage = $this->kebabToTitleCase($page);
 
-        $reports = DetailLaporan::with(['laporan', 'pembuat', 'penerima'])
-            ->whereHas('laporan', function ($query) {
-                $query->where('status', 'valid')
-                    ->orWhere('status', 'publish')
-                    ->orWhere('status', 'verification');
-            })->where('dibuat_oleh', auth()->user()->id)->get();
+        if(auth()->user()->level == 'admin'){
+            $reports = DetailLaporan::with(['laporan', 'pembuat', 'penerima'])
+                ->whereHas('laporan', function ($query) {
+                    $query->where('status', 'valid')
+                        ->orWhere('status', 'publish')
+                        ->orWhere('status', 'verification');
+                })->get();
+        }else{
+            $reports = DetailLaporan::with(['laporan', 'pembuat', 'penerima'])
+                ->whereHas('laporan', function ($query) {
+                    $query->where('status', 'valid')
+                        ->orWhere('status', 'publish')
+                        ->orWhere('status', 'verification');
+                })->where('dibuat_oleh', auth()->user()->id)->get();
+        }
 
         foreach ($reports as $report) {
             $report->laporan->tanggal_ubah = Carbon::parse($report->laporan->updated_at)->translatedFormat('d F Y');
@@ -321,10 +348,17 @@ class ReportController extends Controller
         $page = last(explode('/', $currentUrl));
         $namePage = $this->kebabToTitleCase($page);
 
-        $report = DetailLaporan::with(['laporan', 'pembuat', 'penerima'])
-            ->whereHas('laporan', function ($query) use ($id_laporan) {
-                $query->where('id', $id_laporan);
-            })->where('dibuat_oleh', auth()->user()->id)->first();
+        if(auth()->user()->level == 'admin'){
+            $report = DetailLaporan::with(['laporan', 'pembuat', 'penerima'])
+                ->whereHas('laporan', function ($query) use ($id_laporan) {
+                    $query->where('id', $id_laporan);
+                })->first();
+        }else{
+            $report = DetailLaporan::with(['laporan', 'pembuat', 'penerima'])
+                ->whereHas('laporan', function ($query) use ($id_laporan) {
+                    $query->where('id', $id_laporan);
+                })->where('dibuat_oleh', auth()->user()->id)->first();
+        }
 
         $data = [
             'title' => 'SIKOM1416 | ' . $namePage,

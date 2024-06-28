@@ -1725,6 +1725,10 @@ div.dt-container select.dt-input {
     width: 439px;
   }
 
+  .lg\:w-2\/4 {
+    width: 50%;
+  }
+
   .lg\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }

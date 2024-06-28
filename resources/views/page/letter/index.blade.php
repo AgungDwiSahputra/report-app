@@ -38,7 +38,7 @@
                     @foreach ($letters as $key => $data)
                         @php
                             $status = 'Belum Validasi';
-                            $link = route('report.show', $data->id_pengajuan);
+                            $link = route('pengajuan.show', $data->id_pengajuan);
                             $color = 'text-blue-600';
                             if ($data->pengajuan->status == 'valid') {
                                 $status = 'Tervalidasi';

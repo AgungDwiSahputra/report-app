@@ -61,7 +61,7 @@
                                     </svg>
                                 </a>
                                 <ul id="collaps-surat-pengajuan" class="text-white hidden">
-                                    @if (auth()->user()->level == 'dandim')
+                                    @if (auth()->user()->level == 'dandim' || auth()->user()->level == 'admin')
                                         <li class="list-navbar hover:bg-custom-green-700 {{ $page == 'verification-pengajuan' ? 'bg-custom-green-700' : '' }}"><a href="{{ route('verification-pengajuan.index') }}" class="block h-full w-full py-4 pl-11 pr-7">Verifikasi Pengajuan</a></li>
                                     @endif
                                     @if (auth()->user()->level != 'dandim')

@@ -23,12 +23,21 @@ class VerificationPengajuanController extends Controller
         $page = last(explode('/', $currentUrl));
         $namePage = $this->kebabToTitleCase($page);
 
-        $letters = DetailPengajuan::with(['pengajuan', 'pembuat', 'penerima'])
-            ->whereHas('pengajuan', function ($query) {
-                $query->where('status', 'publish')
-                    ->orWhere('status', 'not-verify')
-                    ->orWhere('status', 'agree');
-            })->where('diterima_oleh', auth()->user()->id)->get();
+        if(auth()->user()->level == 'admin'){
+            $letters = DetailPengajuan::with(['pengajuan', 'pembuat', 'penerima'])
+                ->whereHas('pengajuan', function ($query) {
+                    $query->where('status', 'publish')
+                        ->orWhere('status', 'not-verify')
+                        ->orWhere('status', 'agree');
+                })->get();
+        }else{
+            $letters = DetailPengajuan::with(['pengajuan', 'pembuat', 'penerima'])
+                ->whereHas('pengajuan', function ($query) {
+                    $query->where('status', 'publish')
+                        ->orWhere('status', 'not-verify')
+                        ->orWhere('status', 'agree');
+                })->where('diterima_oleh', auth()->user()->id)->get();
+        }
 
         foreach ($letters as $letter) {
             $letter->pengajuan->tanggal_buat = Carbon::parse($letter->pengajuan->created_at)->translatedFormat('d F Y');
@@ -91,10 +100,17 @@ class VerificationPengajuanController extends Controller
         $page = last(explode('/', $currentUrl));
         $namePage = $this->kebabToTitleCase($page);
 
-        $letter = DetailPengajuan::with(['pengajuan', 'pembuat', 'penerima'])
-            ->whereHas('pengajuan', function ($query) use ($id_pengajuan) {
-                $query->where('id', $id_pengajuan);
-            })->where('diterima_oleh', auth()->user()->id)->first();
+        if(auth()->user()->level == 'admin'){
+            $letter = DetailPengajuan::with(['pengajuan', 'pembuat', 'penerima'])
+                ->whereHas('pengajuan', function ($query) use ($id_pengajuan) {
+                    $query->where('id', $id_pengajuan);
+                })->first();
+        }else{
+            $letter = DetailPengajuan::with(['pengajuan', 'pembuat', 'penerima'])
+                ->whereHas('pengajuan', function ($query) use ($id_pengajuan) {
+                    $query->where('id', $id_pengajuan);
+                })->where('diterima_oleh', auth()->user()->id)->first();
+        }
 
         $letter->pengajuan->tanggal_romawi = Carbon::parse($letter->pengajuan->updated_at)->translatedFormat('n');
         $tanggal_romawi = array(

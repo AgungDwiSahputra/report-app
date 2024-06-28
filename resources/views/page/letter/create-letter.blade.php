@@ -37,7 +37,22 @@
                                     <option value="danramil01">Danramil 01</option>
                                     <option value="danramil02">Danramil 02</option>
                                 </select> --}}
-                                <input readonly value="{{ $user->jabatan }}" placeholder="Dibuat Oleh" type="text" name="dibuat_oleh" id="dibuat_oleh" class="w-full h-10 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500 sm:text-md">
+                                @if(auth()->user()->level != 'admin')
+                                    <input readonly value="{{ $user->jabatan }}" placeholder="Dibuat Oleh" type="text" name="dibuat_oleh" id="dibuat_oleh" class="w-full h-10 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500 sm:text-md">
+                                @else
+                                    <select id="dibuat_oleh" name="dibuat_oleh" class="w-full h-10 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500 sm:text-md">
+                                        <option value="">-- PILIH --</option>
+                                        @if(auth()->user()->level == 'admin')
+                                            @foreach($pengguna as $data)
+                                                @if($data->level == 'staf')
+                                                    <option value="{{ $data->id }}">{{ $data->jabatan }}</option>
+                                                @endif
+                                            @endforeach
+                                        @else
+                                            <option value="{{ auth()->user()->id }}">{{ auth()->user()->jabatan }}</option>
+                                        @endif
+                                    </select>
+                                @endif
                             </div>
                         </div>
                         <!-- Diterima Oleh -->
@@ -54,7 +69,9 @@
                                 <select id="diterima_oleh" name="diterima_oleh" class="w-full h-10 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500 sm:text-md">
                                     <option value="">-- PILIH --</option>
                                     @foreach($pengguna as $data)
-                                        <option value="{{ $data->id }}" selected>{{ $data->jabatan }} 1416/Muna</option>
+                                        @if($data->level == "dandim")
+                                            <option value="{{ $data->id }}" selected>{{ $data->jabatan }} 1416/Muna</option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>

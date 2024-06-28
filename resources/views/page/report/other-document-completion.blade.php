@@ -16,7 +16,7 @@
             <h1 class="text-2xl text-white font-bold">Kelengkapan Dokumen</h1>
         </div>
         <div class="p-8">
-            <div class="w-2/4 bg-custom-green-500 p-4 -ml-9 rounded-md shadow-md">
+            <div class="lg:w-2/4 w-4/5 bg-custom-green-500 p-4 -ml-9 rounded-md shadow-md">
                 <span class="block text-bold text-white">ID Laporan: {{ $report->id_laporan }} / No. RI/{{ $report->laporan->id }}/LSH/{{ date('Y') }}/{{ $report->pembuat->jabatan . " " . $report->wilayah_asal }}</span>
                 <span class="block text-bold text-white">Laporan: {{ $report->laporan->judul_laporan }}</span>
             </div>

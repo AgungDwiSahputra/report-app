@@ -40,9 +40,15 @@ class PengajuanController extends Controller
         $page = last(explode('/', $currentUrl));
         $namePage = $this->kebabToTitleCase($page);
 
-        $letters = DetailPengajuan::with([
-            'pengajuan', 'pembuat', 'penerima'
-        ])->where('dibuat_oleh', auth()->user()->id)->get();
+        if(auth()->user()->level == 'admin'){
+            $letters = DetailPengajuan::with([
+                'pengajuan', 'pembuat', 'penerima'
+            ])->get();
+        }else{
+            $letters = DetailPengajuan::with([
+                'pengajuan', 'pembuat', 'penerima'
+            ])->where('dibuat_oleh', auth()->user()->id)->get();
+        }
 
         foreach ($letters as $report) {
             $report->pengajuan->tanggal_buat = Carbon::parse($report->pengajuan->created_at)->translatedFormat('d F Y');
@@ -72,7 +78,11 @@ class PengajuanController extends Controller
         $page = last(explode('/', $currentUrl));
         $namePage = $this->kebabToTitleCase($page);
 
-        $pengguna = Pengguna::where('level', '=', 'dandim')->get();
+        if(auth()->user()->level == 'admin'){
+            $pengguna = Pengguna::get();
+        }else{
+            $pengguna = Pengguna::where('level', '=', 'dandim')->get();
+        }
         $penggunaPerintah = Pengguna::get();
 
         $data = [
@@ -134,7 +144,7 @@ class PengajuanController extends Controller
             // Simpan data ke tabel detail_pengajuan
             $detailPengajuan = new DetailPengajuan;
             $detailPengajuan->id_pengajuan = $pengajuan->id;
-            $detailPengajuan->dibuat_oleh = auth()->user()->id;
+            $detailPengajuan->dibuat_oleh = $request->dibuat_oleh;
             $detailPengajuan->diterima_oleh = $request->diterima_oleh;
             $detailPengajuan->wilayah_asal = $request->wilayah_asal;
             $detailPengajuan->deskripsi = $request->deskripsi;
@@ -166,9 +176,15 @@ class PengajuanController extends Controller
         $page = last(explode('/', $currentUrl));
         $namePage = $this->kebabToTitleCase($page);
 
-        $letters = DetailPengajuan::with([
-            'pengajuan', 'pembuat', 'penerima'
-        ])->where('dibuat_oleh', auth()->user()->id)->get();
+        if(auth()->user()->level == 'admin'){
+            $letters = DetailPengajuan::with([
+                'pengajuan', 'pembuat', 'penerima'
+            ])->get();
+        }else{
+            $letters = DetailPengajuan::with([
+                'pengajuan', 'pembuat', 'penerima'
+            ])->where('dibuat_oleh', auth()->user()->id)->get();
+        }
 
         foreach ($letters as $report) {
             $report->pengajuan->tanggal_buat = Carbon::parse($report->pengajuan->created_at)->translatedFormat('d F Y');
@@ -192,12 +208,21 @@ class PengajuanController extends Controller
         $page = last(explode('/', $currentUrl));
         $namePage = $this->kebabToTitleCase($page);
 
-        $letters = DetailPengajuan::with(['pengajuan', 'pembuat', 'penerima'])
-            ->whereHas('pengajuan', function ($query) {
-                $query->where('status', 'agree')
-                    ->orWhere('status', 'valid')
-                    ->orWhere('status', 'publish');
-            })->where('dibuat_oleh', auth()->user()->id)->get();
+        if(auth()->user()->level == 'admin'){
+            $letters = DetailPengajuan::with(['pengajuan', 'pembuat', 'penerima'])
+                ->whereHas('pengajuan', function ($query) {
+                    $query->where('status', 'agree')
+                        ->orWhere('status', 'valid')
+                        ->orWhere('status', 'publish');
+                })->get();
+        }else{
+            $letters = DetailPengajuan::with(['pengajuan', 'pembuat', 'penerima'])
+                ->whereHas('pengajuan', function ($query) {
+                    $query->where('status', 'agree')
+                        ->orWhere('status', 'valid')
+                        ->orWhere('status', 'publish');
+                })->where('dibuat_oleh', auth()->user()->id)->get();
+        }
 
         foreach ($letters as $report) {
             $report->pengajuan->tanggal_ubah = Carbon::parse($report->pengajuan->updated_at)->translatedFormat('d F Y');
@@ -221,10 +246,17 @@ class PengajuanController extends Controller
         $page = last(explode('/', $currentUrl));
         $namePage = $this->kebabToTitleCase($page);
 
-        $letter = DetailPengajuan::with(['pengajuan', 'pembuat', 'penerima'])
-            ->whereHas('pengajuan', function ($query) use ($id_pengajuan) {
-                $query->where('id', $id_pengajuan);
-            })->where('dibuat_oleh', auth()->user()->id)->first();
+        if(auth()->user()->level == 'admin'){
+            $letter = DetailPengajuan::with(['pengajuan', 'pembuat', 'penerima'])
+                ->whereHas('pengajuan', function ($query) use ($id_pengajuan) {
+                    $query->where('id', $id_pengajuan);
+                })->first();
+        }else{
+            $letter = DetailPengajuan::with(['pengajuan', 'pembuat', 'penerima'])
+                ->whereHas('pengajuan', function ($query) use ($id_pengajuan) {
+                    $query->where('id', $id_pengajuan);
+                })->where('dibuat_oleh', auth()->user()->id)->first();
+        }
 
         $letter->pengajuan->tanggal_romawi = Carbon::parse($letter->pengajuan->updated_at)->translatedFormat('n');
         $tanggal_romawi = array(
@@ -281,9 +313,15 @@ class PengajuanController extends Controller
         $pengguna = Pengguna::where('level', '=', 'dandim')->get();
         $penggunaPerintah = Pengguna::get();
 
-        $letter = DetailPengajuan::with([
-            'pengajuan', 'pembuat', 'penerima'
-        ])->where('id_pengajuan', $id)->where('dibuat_oleh', auth()->user()->id)->first();
+        if(auth()->user()->level == 'admin'){
+            $letter = DetailPengajuan::with([
+                'pengajuan', 'pembuat', 'penerima'
+            ])->where('id_pengajuan', $id)->first();
+        }else{
+            $letter = DetailPengajuan::with([
+                'pengajuan', 'pembuat', 'penerima'
+            ])->where('id_pengajuan', $id)->where('dibuat_oleh', auth()->user()->id)->first();
+        }
 
         $letter->pengajuan->tanggal_buat = Carbon::parse($letter->pengajuan->created_at)->translatedFormat('Y-m-d');
 
@@ -360,7 +398,7 @@ class PengajuanController extends Controller
             // Simpan data ke tabel detail_pengajuan
             $detailPengajuan = DetailPengajuan::where('id_pengajuan', $pengajuan->id)->first();
             $detailPengajuan->id_pengajuan = $pengajuan->id;
-            $detailPengajuan->dibuat_oleh = auth()->user()->id;
+            $detailPengajuan->dibuat_oleh = $request->dibuat_oleh;
             $detailPengajuan->diterima_oleh = $request->diterima_oleh;
             $detailPengajuan->wilayah_asal = $request->wilayah_asal;
             $detailPengajuan->deskripsi = $request->deskripsi;
