@@ -52,7 +52,7 @@
             <br><br><br>
             <center>
                 <span>LAPORAN SITUASI HARIAN</span>
-                <span>Nomor: RI/{{ $data->laporan->id }}/LSH/{{ date('Y') }}/{{ $data->pembuat->jabatan . " " . $data->wilayah_asal }}</span>
+                <span>Nomor: RI/{{ $data->laporan->id }}/LSH/{{ date('Y') }}/{{ $data->pembuat->jabatan }}</span>
                 <br>
                 <span>PEMANTAUAN WILAYAH {{ strtoupper($data->wilayah_asal) }}</span>
                 <span>TWP. {{ $data->laporan->waktu_buat }} WITA. {{ $data->laporan->tanggal_buat }}</span>
@@ -63,9 +63,9 @@
             @if($data->pembuat->level == 'babinsa')
                 <span>Yth. {{ $data->penerima->jabatan }}</span>
             @else
-                <span>Yth. {{ $data->penerima->jabatan . " " . $wilayah_asal_dandim }}</span>
+                <span>Yth. {{ $data->penerima->jabatan }}</span>
             @endif
-            <span>Dari {{ $data->pembuat->jabatan . " " . $data->wilayah_asal }}</span>
+            <span>Dari {{ $data->pembuat->jabatan }}</span>
         </div>
 
         <div style="margin-bottom: 8px;">
