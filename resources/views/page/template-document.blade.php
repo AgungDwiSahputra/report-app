@@ -197,7 +197,7 @@
             @foreach($data->lampiran as $lampiran)
                 <tr>
                     <td>
-                        <img width="400px" src="{{ public_path('storage/images/report/' . $lampiran) }}" alt="Image Lampiran">
+                        <img width="400px" src="{{ url('storage/images/report/' . $lampiran) }}" alt="Image Lampiran">
                     </td>
                 </tr>
             @endforeach
