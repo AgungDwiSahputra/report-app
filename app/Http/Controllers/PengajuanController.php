@@ -144,7 +144,11 @@ class PengajuanController extends Controller
             // Simpan data ke tabel detail_pengajuan
             $detailPengajuan = new DetailPengajuan;
             $detailPengajuan->id_pengajuan = $pengajuan->id;
-            $detailPengajuan->dibuat_oleh = $request->dibuat_oleh;
+            if(auth()->user()->level != "admin"){
+                $detailPengajuan->dibuat_oleh = auth()->user()->id;
+            }else{
+                $detailPengajuan->dibuat_oleh = $request->dibuat_oleh;
+            }
             $detailPengajuan->diterima_oleh = $request->diterima_oleh;
             $detailPengajuan->wilayah_asal = $request->wilayah_asal;
             $detailPengajuan->deskripsi = $request->deskripsi;
@@ -398,7 +402,11 @@ class PengajuanController extends Controller
             // Simpan data ke tabel detail_pengajuan
             $detailPengajuan = DetailPengajuan::where('id_pengajuan', $pengajuan->id)->first();
             $detailPengajuan->id_pengajuan = $pengajuan->id;
-            $detailPengajuan->dibuat_oleh = $request->dibuat_oleh;
+            if(auth()->user()->level != "admin"){
+                $detailPengajuan->dibuat_oleh = auth()->user()->id;
+            }else{
+                $detailPengajuan->dibuat_oleh = $request->dibuat_oleh;
+            }
             $detailPengajuan->diterima_oleh = $request->diterima_oleh;
             $detailPengajuan->wilayah_asal = $request->wilayah_asal;
             $detailPengajuan->deskripsi = $request->deskripsi;
