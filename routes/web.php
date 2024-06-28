@@ -40,7 +40,7 @@ Route::middleware('auth')->group(function () {
 });
 
 // Report (level : babinsa dan danramil)
-Route::middleware(['auth', 'level:babinsa,danramil'])->group(function () {
+Route::middleware(['auth', 'level:babinsa,danramil,admin'])->group(function () {
     Route::resource('/page/report', ReportController::class);
     Route::get('/download-report/{filename}', [ReportController::class, 'downloadReport'])->name('download.report');
     Route::get('/page/show-index', [ReportController::class, 'show_index'])->name('report.show-index');
@@ -50,19 +50,19 @@ Route::middleware(['auth', 'level:babinsa,danramil'])->group(function () {
 });
 
 // Report (level : danramil dan dandim)
-Route::middleware(['auth', 'level:danramil,dandim'])->group(function () {
+Route::middleware(['auth', 'level:danramil,dandim,admin'])->group(function () {
     // Verification Report
     Route::resource('/verification-report', VerificationReportController::class);
 });
 
 // Report (level : dandim)
-Route::middleware(['auth', 'level:dandim'])->group(function () {
+Route::middleware(['auth', 'level:dandim,admin'])->group(function () {
     // Verification Report
     Route::resource('/verification-pengajuan', VerificationPengajuanController::class);
 });
 
 // Letter (level : staf)
-Route::middleware(['auth', 'level:staf'])->group(function () {
+Route::middleware(['auth', 'level:staf,admin'])->group(function () {
     Route::resource('/page/pengajuan', PengajuanController::class);
     Route::get('/page/show-index-pengajuan', [PengajuanController::class, 'show_index'])->name('pengajuan.show-index');
     Route::get('/page/show-other-index-pengajuan', [PengajuanController::class, 'show_other_index'])->name('pengajuan.show-other-index');
