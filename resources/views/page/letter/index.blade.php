@@ -55,6 +55,11 @@
                                 $link = 'javascript:void(0);';
                                 $color = 'text-green-600';
                             }
+                            if ($data->pengajuan->status == 'not-verify') {
+                                $status = 'Surat Tertolak';
+                                $link = 'javascript:void(0)';
+                                $color = 'text-red-600';
+                            }
                         @endphp
                         <tr>
                             <td>{{ $key + 1 }}</td>
