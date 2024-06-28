@@ -13,18 +13,21 @@
         <div>
             <form action="{{ route('post.change-password', $pengguna->id) }}" method="POST" id="profile-form" class="flex items-center justify-center flex-col">
                 @csrf
-                <!-- Password Old -->
-                <div class="mb-2">
-                    <div class="flex items-center border border-gray-300 rounded-lg overflow-hidden focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500">
-                        <span class="inline-flex items-center px-3 border-r-1 border-solid border-gray-300">
-                            <!-- SVG Ikon -->
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
-                                <path fill-rule="evenodd" d="M12 1.5a5.25 5.25 0 0 0-5.25 5.25v3a3 3 0 0 0-3 3v6.75a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3v-6.75a3 3 0 0 0-3-3v-3c0-2.9-2.35-5.25-5.25-5.25Zm3.75 8.25v-3a3.75 3.75 0 1 0-7.5 0v3h7.5Z" clip-rule="evenodd" />
-                            </svg>
-                        </span>
-                        <input value="{{ old('password-old') }}" placeholder="Masukan Kata Sandi Lama" type="text" name="password-old" id="password-old" class="w-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500 sm:text-md">
+
+                @if(auth()->user()->level != 'admin')
+                    <!-- Password Old -->
+                    <div class="mb-2">
+                        <div class="flex items-center border border-gray-300 rounded-lg overflow-hidden focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500">
+                            <span class="inline-flex items-center px-3 border-r-1 border-solid border-gray-300">
+                                <!-- SVG Ikon -->
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                    <path fill-rule="evenodd" d="M12 1.5a5.25 5.25 0 0 0-5.25 5.25v3a3 3 0 0 0-3 3v6.75a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3v-6.75a3 3 0 0 0-3-3v-3c0-2.9-2.35-5.25-5.25-5.25Zm3.75 8.25v-3a3.75 3.75 0 1 0-7.5 0v3h7.5Z" clip-rule="evenodd" />
+                                </svg>
+                            </span>
+                            <input value="{{ old('password-old') }}" placeholder="Masukan Kata Sandi Lama" type="text" name="password-old" id="password-old" class="w-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500 sm:text-md">
+                        </div>
                     </div>
-                </div>
+                @endif
 
                 <!-- New Password -->
                 <div class="mb-2">

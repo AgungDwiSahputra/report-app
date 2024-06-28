@@ -34,6 +34,21 @@ class PageController extends Controller
         return view('forgot-password', $data);
     }
 
+    public function post_forgot_password(Request $request) {
+        $data_anggota = Pengguna::where('nrp', $request->nrp)->first();
+        $admin = Pengguna::where('level', "admin")->first();
+        
+        // Cek jika angka pertama adalah 0, ganti dengan 62
+        if (substr($admin->no_telp, 0, 1) === '0') {
+            $phone_number = '62' . substr($admin->no_telp, 1);
+        }
+        $message = 'Permintaan Perubahan Password oleh *'. $data_anggota->nama_lengkap .'* dengan NRP *'. $request->nrp .'*';
+
+        $encoded_message = urlencode($message);
+
+        return redirect('https://wa.me/'. $phone_number .'?text='. $encoded_message);
+    }
+
     public function change_password(Request $request, $id)
     {
         // Mendapatkan URL saat ini

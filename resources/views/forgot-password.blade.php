@@ -20,17 +20,18 @@
     </head>
 
     <body>
-        <div class="container mx-auto">
+        <div class="mx-auto max-w-screen-2xl">
             <div class="w-screen h-12 bg-custom-green-600"></div>
             <div class="flex items-center justify-center flex-col">
                 <img class="w-[152px] h-[auto]" loading="eager" src="{{ asset('images/logo/logo.png') }}" alt="Logo Kesatria Pantang Menyerah">
                 <div class="w-4/5 rounded-3xl shadow-custom flex items-center justify-center flex-col mt-10 p-8">
                     <h1 class="text-center font-bold text-3xl mb-12">Atur Ulang Password Anda!</h1>
 
-                    <form action="" method="POST" id="profile-form" class="flex items-center justify-center flex-col gap-2">
+                    <form action="{{ route('post.forgot-password') }}" method="POST" id="profile-form" class="flex items-center justify-center flex-col gap-2">
+                        @csrf
                         <!-- NRP -->
                         <div class="mb-2">
-                            <input placeholder="234xxxxxxxxxx" type="number" name="nrp" id="input-nrp" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500 sm:text-md">
+                            <input placeholder="NRP" type="number" name="nrp" id="input-nrp" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500 sm:text-md">
                         </div>
 
                         <button type="submit" class="block w-[180px] h-[50px] text-sm lg:leading-7 leading-9 text-center px-4 py-2 cursor-pointer bg-custom-green-700 text-white font-bold rounded-md shadow-sm hover:bg-[#1d4b13] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#3F6137]">

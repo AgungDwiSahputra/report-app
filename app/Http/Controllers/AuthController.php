@@ -104,28 +104,51 @@ class AuthController extends Controller
     
     public function change_password(Request $request, $id)
     {
-        $request->validate([
-            'password-old' => 'required',
-            'new-password' => 'required|confirmed',
-        ], [
-            'password-old.required' => 'Kata Sandi Lama wajib diisi.',
-            'new-password.required' => 'Kata Sandi Baru wajib diisi.',
-            'new-password.confirmed' => 'Konfirmasi Kata Sandi tidak cocok.',
-        ]);
+        if(auth()->user()->level != 'admin'){
+            $request->validate([
+                'password-old' => 'required',
+                'new-password' => 'required|confirmed',
+            ], [
+                'password-old.required' => 'Kata Sandi Lama wajib diisi.',
+                'new-password.required' => 'Kata Sandi Baru wajib diisi.',
+                'new-password.confirmed' => 'Konfirmasi Kata Sandi tidak cocok.',
+            ]);
+        }else{
+            $request->validate([
+                'new-password' => 'required|confirmed',
+            ], [
+                'new-password.required' => 'Kata Sandi Baru wajib diisi.',
+                'new-password.confirmed' => 'Konfirmasi Kata Sandi tidak cocok.',
+            ]);
+        }
     
         // Ambil pengguna saat ini
         $pengguna = Pengguna::where('id', $id)->first();
 
-        // Periksa apakah kata sandi lama sesuai
-        if (!Hash::check($request->input('password-old'), $pengguna->kata_sandi)) {
-            return redirect()->back()->withErrors(['password-old' => 'Kata Sandi Lama tidak sesuai.']);
+        if(auth()->user()->level != 'admin'){
+            // Periksa apakah kata sandi lama sesuai
+            if (!Hash::check($request->input('password-old'), $pengguna->kata_sandi)) {
+                return redirect()->back()->withErrors(['password-old' => 'Kata Sandi Lama tidak sesuai.']);
+            }
         }
 
          // Update kata sandi baru
          $pengguna->kata_sandi = Hash::make($request->input('new-password'));
          $pengguna->save();
  
-         return redirect()->route('page.change-password', $pengguna->id)->with('success', 'Kata sandi berhasil diperbarui.');
+        if(auth()->user()->level != 'admin'){
+            return redirect()->route('page.change-password', $pengguna->id)->with('success', 'Kata sandi berhasil diperbarui.');
+        }else{
+            // Cek jika angka pertama adalah 0, ganti dengan 62
+            if (substr($pengguna->no_telp, 0, 1) === '0') {
+                $phone_number = '62' . substr($pengguna->no_telp, 1);
+            }
+            $message = 'Password berhasil di perbaharui dengan data NRP *'. $pengguna->NRP .'*. Dengan Password baru *'. $request->input('new-password') .'*';
+
+            $encoded_message = urlencode($message);
+            
+            return redirect('https://wa.me/'. $phone_number .'?text='. $encoded_message);
+        }
     }
 
     public function logout(Request $request) {
