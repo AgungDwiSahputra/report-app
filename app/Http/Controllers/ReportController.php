@@ -190,7 +190,7 @@ class ReportController extends Controller
             // Simpan data ke tabel detail_laporan
             $detailLaporan = new DetailLaporan;
             $detailLaporan->id_laporan = $laporan->id;
-            $detailLaporan->dibuat_oleh = auth()->user()->id;
+            $detailLaporan->dibuat_oleh = $request->dibuat_oleh;
             $detailLaporan->diterima_oleh = $request->diterima_oleh;
             $detailLaporan->wilayah_asal = $request->wilayah_asal;
             $detailLaporan->hal_menonjol = $request->hal_menonjol;
@@ -460,7 +460,7 @@ class ReportController extends Controller
             // Simpan data ke tabel detail_laporan
             $detailLaporan = DetailLaporan::where('id_laporan', $laporan->id)->first();
             $detailLaporan->id_laporan = $laporan->id;
-            $detailLaporan->dibuat_oleh = auth()->user()->id;
+            $detailLaporan->dibuat_oleh = $request->dibuat_oleh;
             $detailLaporan->diterima_oleh = $request->diterima_oleh;
             $detailLaporan->wilayah_asal = $request->wilayah_asal;
             $detailLaporan->hal_menonjol = $request->hal_menonjol;
