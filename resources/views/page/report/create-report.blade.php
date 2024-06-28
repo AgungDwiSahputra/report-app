@@ -37,7 +37,7 @@
                                     <option value="danramil01">Danramil 01</option>
                                     <option value="danramil02">Danramil 02</option>
                                 </select> --}}
-                                <input readonly value="{{ $user->nama_lengkap }}" placeholder="Dibuat Oleh" type="text" name="dibuat_oleh" id="dibuat_oleh" class="w-full h-10 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500 sm:text-md">
+                                <input readonly value="{{ $user->jabatan }}" placeholder="Dibuat Oleh" type="text" name="dibuat_oleh" id="dibuat_oleh" class="w-full h-10 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500 sm:text-md">
                             </div>
                         </div>
                         <!-- Diterima Oleh -->
@@ -55,9 +55,9 @@
                                     <option value="">-- PILIH --</option>
                                     @foreach($pengguna as $data)
                                         @if($user->level == 'babinsa' && $data->level == 'danramil')
-                                            <option value="{{ $data->id }}">{{ $data->nama_lengkap }}</option>
+                                            <option value="{{ $data->id }}">{{ $data->jabatan }}</option>
                                         @elseif($user->level == 'danramil' && $data->level == 'dandim')
-                                            <option value="{{ $data->id }}">{{ $data->nama_lengkap }}</option>
+                                            <option value="{{ $data->id }}">{{ $data->jabatan }}</option>
                                         @else
                                             {{-- <option value="{{ $data->id }}">{{ $data->nama_lengkap }}</option> --}}
                                         @endif

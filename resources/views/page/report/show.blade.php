@@ -32,7 +32,7 @@
                                     <path d="M5.082 14.254a8.287 8.287 0 0 0-1.308 5.135 9.687 9.687 0 0 1-1.764-.44l-.115-.04a.563.563 0 0 1-.373-.487l-.01-.121a3.75 3.75 0 0 1 3.57-4.047ZM20.226 19.389a8.287 8.287 0 0 0-1.308-5.135 3.75 3.75 0 0 1 3.57 4.047l-.01.121a.563.563 0 0 1-.373.486l-.115.04c-.567.2-1.156.349-1.764.441Z" />
                                 </svg>
                             </span>
-                            <input readonly value="{{ $report->pembuat->nama_lengkap }}" placeholder="Dibuat Oleh" type="text" name="dibuat_oleh" id="dibuat_oleh" class="w-full h-10 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500 sm:text-md">
+                            <input readonly value="{{ $report->pembuat->jabatan }}" placeholder="Dibuat Oleh" type="text" name="dibuat_oleh" id="dibuat_oleh" class="w-full h-10 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500 sm:text-md">
                         </div>
                     </div>
                     <!-- Diterima Oleh -->
@@ -50,9 +50,9 @@
                                 <option value="">-- PILIH --</option>
                                     @foreach($pengguna as $data)
                                         @if($user->level == 'babinsa' && $data->level == 'danramil')
-                                            <option value="{{ $data->id }}" {{ $report->penerima->id == $data->id ? 'selected' : '' }}>{{ $data->nama_lengkap }}</option>
+                                            <option value="{{ $data->id }}" {{ $report->penerima->id == $data->id ? 'selected' : '' }}>{{ $data->jabatan }}</option>
                                         @elseif($user->level == 'danramil' && $data->level == 'dandim')
-                                            <option value="{{ $data->id }}" {{ $report->penerima->id == $data->id ? 'selected' : '' }}>{{ $data->nama_lengkap }}</option>
+                                            <option value="{{ $data->id }}" {{ $report->penerima->id == $data->id ? 'selected' : '' }}>{{ $data->jabatan }}</option>
                                         @else
                                             {{-- <option value="{{ $data->id }}">{{ $data->nama_lengkap }}</option> --}}
                                         @endif

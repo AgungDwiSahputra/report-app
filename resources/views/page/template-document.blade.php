@@ -61,7 +61,7 @@
         <br>
         <div style="margin-bottom: 8px;">
             @if($data->pembuat->level == 'babinsa')
-                <span>Yth. {{ $data->penerima->jabatan . " " . $wilayah_asal_danramil }}</span>
+                <span>Yth. {{ $data->penerima->jabatan }}</span>
             @else
                 <span>Yth. {{ $data->penerima->jabatan . " " . $wilayah_asal_dandim }}</span>
             @endif
