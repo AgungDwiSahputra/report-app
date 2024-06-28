@@ -50,7 +50,7 @@
                                 $link = 'javascript:void(0);';
                                 $color = '';
                             }
-                            if ($data->pengajuan->status == 'verification') {
+                            if ($data->pengajuan->status == 'agree') {
                                 $status = 'Terverifikasi';
                                 $link = 'javascript:void(0);';
                                 $color = 'text-green-600';
