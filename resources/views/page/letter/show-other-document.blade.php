@@ -37,10 +37,10 @@
                 $wilayah_asal_dandim = preg_replace("/(\d{4})-\d{2}\/\w+/", "$1/Muna", $wilayah_asal_danramil);
 
                 if($letter->pembuat->level == 'babinsa'){
-                    $message = 'Ytg. '.$letter->penerima->jabatan . ' ' . $wilayah_asal_danramil.'. Kami ingin memberitahukan bahwa '. $letter->pembuat->jabatan . ' ' . $letter->wilayah_asal .' telah menyelesaikan laporan terbaru. Laporan ini memerlukan perhatian Anda segera untuk verifikasi lebih lanjut. Mohon klik link berikut untuk mengakses dan meninjau laporan tersebut: ' . route('verification-pengajuan.index') . '. 
+                    $message = 'Yth. '.$letter->penerima->jabatan . ' ' . $wilayah_asal_danramil.'. Kami ingin memberitahukan bahwa '. $letter->pembuat->jabatan . ' ' . $letter->wilayah_asal .' telah menyelesaikan laporan terbaru. Laporan ini memerlukan perhatian Anda segera untuk verifikasi lebih lanjut. Mohon klik link berikut untuk mengakses dan meninjau laporan tersebut: ' . route('verification-pengajuan.index') . '. 
                     Kami sangat menghargai waktu dan kerja sama Anda dalam memastikan informasi yang akurat dan langkah-langkah yang tepat dapat segera diambil. Terima kasih atas perhatiannya.';
                 }else{
-                    $message = 'Ytg. '.$letter->penerima->jabatan . ' ' . $wilayah_asal_dandim.'. Kami ingin memberitahukan bahwa '. $letter->pembuat->jabatan . ' ' . $letter->wilayah_asal .' telah menyelesaikan laporan terbaru. Laporan ini memerlukan perhatian Anda segera untuk verifikasi lebih lanjut. Mohon klik link berikut untuk mengakses dan meninjau laporan tersebut: ' . route('verification-pengajuan.index') . '. 
+                    $message = 'Yth. '.$letter->penerima->jabatan . ' ' . $wilayah_asal_dandim.'. Kami ingin memberitahukan bahwa '. $letter->pembuat->jabatan . ' ' . $letter->wilayah_asal .' telah menyelesaikan laporan terbaru. Laporan ini memerlukan perhatian Anda segera untuk verifikasi lebih lanjut. Mohon klik link berikut untuk mengakses dan meninjau laporan tersebut: ' . route('verification-pengajuan.index') . '. 
                     Kami sangat menghargai waktu dan kerja sama Anda dalam memastikan informasi yang akurat dan langkah-langkah yang tepat dapat segera diambil. Terima kasih atas perhatiannya.';
                 }
 
