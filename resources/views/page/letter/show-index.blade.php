@@ -50,7 +50,7 @@
                             }
                             if ($data->pengajuan->status == 'not-verify') {
                                 $status = 'Surat Tertolak';
-                                $link = 'javascript:void(0)';
+                                // $link = 'javascript:void(0)';
                                 $color = 'text-red-600';
                             }
                         @endphp

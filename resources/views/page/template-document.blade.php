@@ -87,7 +87,7 @@
                     <td style="vertical-align: top;width: 10px">:</td>
                     <td style="vertical-align: top;">{{ $data->cuaca }}</td>
                 </tr>
-            @if(auth()->user()->level != 'babinsa')
+            @if(auth()->user()->level != 'babinsa' && $data->jml_personil != null)
                 <tr>
                     <td style="vertical-align: top;width: 10px">4.</td>
                     <td style="vertical-align: top;width: 150px">Jumlah Personil</td>
@@ -119,7 +119,7 @@
                     <td style="vertical-align: top;width: 10px">:</td>
                     <td style="vertical-align: top;">{{ ucwords($data->materil) }}</td>
                 </tr>
-            @if(auth()->user()->level != 'babinsa')
+            @if(auth()->user()->level != 'babinsa' && $data->dinas_dalam != null)
                 <tr>
                     <td style="vertical-align: top;width: 10px">2.</td>
                     <td style="vertical-align: top;width: 150px">Dinas Dalam</td>

@@ -43,7 +43,9 @@
                                     <select id="dibuat_oleh" name="dibuat_oleh" class="w-full h-10 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500 sm:text-md">
                                         <option value="">-- PILIH --</option>
                                         @foreach($pengguna as $data)
-                                            <option value="{{ $data->id }}">{{ $data->jabatan }}</option>
+                                            @if($data->level != 'staf' && $data->level != 'dandim')
+                                                <option value="{{ $data->id }}" data-level="{{ $data->level }}">{{ $data->jabatan }}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                 @endif
@@ -199,7 +201,7 @@
 
                         @if(auth()->user()->level != 'babinsa')
                             <!-- Jumlah Personil -->
-                            <div class="mb-2">
+                            <div class="mb-2 hidden effect-hidden">
                                 <label for="jml_personil" class="text-black text-sm font-bold">Jumlah Personil</label>
                                 <div class="flex items-center border border-gray-300 rounded-lg overflow-hidden focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500">
                                     <span class="inline-flex items-center px-3 border-r-1 border-solid border-gray-300">
@@ -213,7 +215,7 @@
                                 </div>
                             </div>
                             <!-- Personil Hadir -->
-                            <div class="mb-2">
+                            <div class="mb-2 hidden effect-hidden">
                                 <label for="personil_hadir" class="text-black text-sm font-bold">Personil Hadir</label>
                                 <div class="flex items-center border border-gray-300 rounded-lg overflow-hidden focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500">
                                     <span class="inline-flex items-center px-3 border-r-1 border-solid border-gray-300">
@@ -228,7 +230,7 @@
                             </div>
 
                             <!-- Personil Kurang -->
-                            <div class="mb-2">
+                            <div class="mb-2 hidden effect-hidden">
                                 <label for="personil_kurang" class="text-black text-sm font-bold">Personil Kurang</label>
                                 <div class="flex items-center border border-gray-300 rounded-lg overflow-hidden focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500">
                                     <span class="inline-flex items-center px-3 border-r-1 border-solid border-gray-300">
@@ -242,7 +244,7 @@
                                 </div>
                             </div>
                             <!-- Dinas Dalam -->
-                            <div class="mb-2">
+                            <div class="mb-2 hidden effect-hidden">
                                 <label for="dinas_dalam" class="text-black text-sm font-bold">Dinas Dalam</label>
                                 <div class="flex items-center border border-gray-300 rounded-lg overflow-hidden focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500">
                                     <span class="inline-flex items-center px-3 border-r-1 border-solid border-gray-300">
@@ -257,7 +259,7 @@
                             </div>
 
                             <!-- Dinas Luar -->
-                            <div class="mb-2">
+                            <div class="mb-2 hidden effect-hidden">
                                 <label for="dinas_luar" class="text-black text-sm font-bold">Dinas Luar</label>
                                 <div class="flex items-center border border-gray-300 rounded-lg overflow-hidden focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500">
                                     <span class="inline-flex items-center px-3 border-r-1 border-solid border-gray-300">
@@ -271,7 +273,7 @@
                                 </div>
                             </div>
                             <!-- Piket Pos -->
-                            <div class="mb-2">
+                            <div class="mb-2 hidden effect-hidden">
                                 <label for="piket_pos" class="text-black text-sm font-bold">Piket Pos</label>
                                 <div class="flex items-center border border-gray-300 rounded-lg overflow-hidden focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500">
                                     <span class="inline-flex items-center px-3 border-r-1 border-solid border-gray-300">
@@ -432,5 +434,20 @@
                 buttonsStyling: false
             });
         }
+    </script>
+
+    <script>
+        // Effect Hidden for Admin Function
+        $(document).ready(function() {
+            $('#dibuat_oleh').on('change', function() {
+                let level = $(this).find('option:selected').data('level');
+                console.log(level, level != "babinsa");
+                if(level != "babinsa"){
+                    $('.effect-hidden').removeClass('hidden');
+                }else{
+                    $('.effect-hidden').addClass('hidden');
+                }
+            });
+        });
     </script>
 @endpush

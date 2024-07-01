@@ -2,14 +2,49 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Laporan;
+use App\Models\Pengajuan;
 use App\Models\Pengguna;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PageController extends Controller
 {
     public function index()
     {
         return redirect()->route('page.login');
+    }
+    public function dashboard(Request $request)
+    {
+        // Mendapatkan URL saat ini
+        $currentUrl = $request->path();
+
+        // Memproses bagian URL yang diinginkan, misalnya, mengambil segmen terakhir
+        $page = last(explode('/', $currentUrl));
+        $namePage = $this->kebabToTitleCase($page);
+
+        $report = Laporan::select('status', DB::raw('count(*) as total'))->groupBy('status')->get();
+        $total_report = 0;
+        foreach ($report as $key => $data) {
+            $total_report += $data->total;
+        }
+        $letter = Pengajuan::select('status', DB::raw('count(*) as total'))->groupBy('status')->get();
+        $total_letter = 0;
+        foreach ($letter as $key => $data) {
+            $total_letter += $data->total;
+        }
+
+        $data = [
+            'title' => 'SIKOM1416 | ' . $namePage,
+            'page' => $page,
+            'namePage' => $namePage,
+            'report' => $report,
+            'total_report' => $total_report,
+            'letter' => $letter,
+            'total_letter' => $total_letter,
+        ];
+
+        return view('page.dashboard', $data);
     }
     public function login()
     {

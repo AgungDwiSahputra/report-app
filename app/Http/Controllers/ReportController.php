@@ -106,7 +106,7 @@ class ReportController extends Controller
         $user = auth()->user();
 
         // Validasi data
-        if ($user->level != 'babinsa') {
+        if ($user->level != 'babinsa' && $user->level != 'admin') {
             $request->validate([
                 'dibuat_oleh' => 'required',
                 'diterima_oleh' => 'required',
@@ -401,7 +401,7 @@ class ReportController extends Controller
     {
         $user = auth()->user();
         // Validasi data
-        if ($user->level != 'babinsa') {
+        if ($user->level != 'babinsa' && $user->level != 'admin') {
             $request->validate([
                 'dibuat_oleh' => 'required',
                 'diterima_oleh' => 'required',

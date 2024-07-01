@@ -30,7 +30,9 @@ Route::middleware('guest')->group(function () {
     Route::get('/login', [PageController::class, 'login'])->name('page.login');
     Route::post('/login/process', [AuthController::class, 'login'])->name('post.login');
 });
-
+Route::middleware(['auth', 'level:admin'])->group(function () {
+    Route::get('/dashboard', [PageController::class, 'dashboard'])->name('page.dashboard');
+});
 // (level : semua level)
 Route::middleware('auth')->group(function () {
     Route::get('/change-password/{id_pengguna}', [PageController::class, 'change_password'])->name('page.change-password');

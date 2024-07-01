@@ -56,7 +56,7 @@
                             }
                             if ($data->laporan->status == 'not-verify') {
                                 $status = 'Laporan Tertolak';
-                                $link = 'javascript:void(0)';
+                                // $link = 'javascript:void(0)';
                                 $color = 'text-red-600';
                             }
                         @endphp

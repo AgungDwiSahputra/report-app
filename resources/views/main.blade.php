@@ -31,6 +31,9 @@
                 <div class="container mx-auto flex flex-col h-full mt-12 gap-5">
                     <img class="w-[60%] h-[auto] p-7 mx-auto" loading="lazy" src="{{ asset('images/logo/logo.png') }}" alt="Logo Kesatria Pantang Menyerah">
                     <ul class="text-white h-full overflow-y-auto flex-1">
+                        @if(auth()->user()->level == 'admin')
+                            <li class="list-navbar hover:bg-custom-green-600 {{ $page == 'dashboard' ? 'bg-custom-green-600' : '' }}"><a href="{{ route('page.dashboard') }}" class="block h-full w-full py-4 px-7">Dashboard</a></li>
+                        @endif
                         <li class="list-navbar hover:bg-custom-green-600 {{ $page == 'profile' ? 'bg-custom-green-600' : '' }}"><a href="{{ route('page.profile') }}" class="block h-full w-full py-4 px-7">Profil</a></li>
                         <!-- Collaps Effect -->
                         @if (auth()->user()->level != 'staf')
