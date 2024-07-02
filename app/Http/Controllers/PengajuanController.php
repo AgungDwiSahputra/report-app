@@ -57,7 +57,7 @@ class PengajuanController extends Controller
         $data = [
             'title' => 'SIKOM1416 | ' . $namePage,
             'page' => $page,
-            'namePage' => $namePage,
+            // 'namePage' => $namePage,
             'letters' => $letters,
         ];
 
@@ -235,7 +235,7 @@ class PengajuanController extends Controller
         $data = [
             'title' => 'SIKOM1416 | ' . $namePage,
             'page' => $page,
-            'namePage' => $namePage,
+            // 'namePage' => $namePage,
 
             'letters' => $letters,
         ];
@@ -282,7 +282,7 @@ class PengajuanController extends Controller
         $data = [
             'title' => 'SIKOM1416 | ' . $namePage,
             'page' => $page,
-            'namePage' => $namePage,
+            // 'namePage' => $namePage,
 
             'letter' => $letter,
         ];

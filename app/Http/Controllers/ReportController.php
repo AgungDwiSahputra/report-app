@@ -59,7 +59,7 @@ class ReportController extends Controller
         $data = [
             'title' => 'SIKOM1416 | ' . $namePage,
             'page' => $page,
-            'namePage' => $namePage,
+            // 'namePage' => $namePage,
             'reports' => $reports,
         ];
 
@@ -335,7 +335,7 @@ class ReportController extends Controller
         $data = [
             'title' => 'SIKOM1416 | ' . $namePage,
             'page' => $page,
-            'namePage' => $namePage,
+            // 'namePage' => $namePage,
 
             'reports' => $reports,
         ];
@@ -367,7 +367,7 @@ class ReportController extends Controller
         $data = [
             'title' => 'SIKOM1416 | ' . $namePage,
             'page' => $page,
-            'namePage' => $namePage,
+            // 'namePage' => $namePage,
 
             'report' => $report,
         ];
