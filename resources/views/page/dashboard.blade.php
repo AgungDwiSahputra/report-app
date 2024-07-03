@@ -17,7 +17,7 @@
                 ];
             @endphp
 
-            <div class="h-32 flex items-center justify-center flex-col border-green-400 bg-white rounded-md shadow-md px-4 py-2">
+            <div class="h-32 flex items-center justify-center flex-col border-white bg-custom-green-500 text-white rounded-md shadow-md px-4 py-2">
                 <span class="block text-sm text-center">Jumlah Laporan Dibuat</span>
                 <span class="block text-3xl text-center font-bold">{{ $total_report }}</span>
             </div>
@@ -27,7 +27,7 @@
                     $reportData = $report->firstWhere('status', $status);
                     $totalReport = $reportData ? $reportData->total : 0;
                 @endphp
-                <div class="h-32 flex items-center justify-center flex-col border-green-400 bg-white rounded-md shadow-md px-4 py-2">
+                <div class="h-32 flex items-center justify-center flex-col border-white border-2 border-solid bg-custom-green-500 text-white rounded-md shadow-md px-4 py-2">
                     <span class="block text-sm text-center">Jumlah Laporan {{ $label }}</span>
                     <span class="block text-3xl text-center font-bold">{{ $totalReport }}</span>
                 </div>
@@ -36,7 +36,7 @@
 
         <p class="font-bold mt-5">Informasi Surat</p>
         <div class="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-2 gap-4">
-            <div class="h-32 flex items-center justify-center flex-col border-green-400 bg-white rounded-md shadow-md px-4 py-2">
+            <div class="h-32 flex items-center justify-center flex-col border-white bg-custom-green-500 text-white rounded-md shadow-md px-4 py-2">
                 <span class="block text-sm text-center">Jumlah Surat Dibuat</span>
                 <span class="block text-3xl text-center font-bold">{{ $total_letter }}</span>
             </div>
@@ -56,7 +56,7 @@
                     $letterData = $letter->firstWhere('status', $status);
                     $totalLetter = $letterData ? $letterData->total : 0;
                 @endphp
-                <div class="h-32 flex items-center justify-center flex-col border-green-400 bg-white rounded-md shadow-md px-4 py-2">
+                <div class="h-32 flex items-center justify-center flex-col border-white border-2 border-solid bg-custom-green-500 text-white rounded-md shadow-md px-4 py-2">
                     <span class="block text-sm text-center">Jumlah Surat {{ $label }}</span>
                     <span class="block text-3xl text-center font-bold">{{ $totalLetter }}</span>
                 </div>
