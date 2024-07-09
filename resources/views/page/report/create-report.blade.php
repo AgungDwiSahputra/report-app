@@ -439,9 +439,13 @@
     <script>
         // Effect Hidden for Admin Function
         $(document).ready(function() {
+            let level_user = `{{auth()->user()->level}}`;
+    
+            if(level_user != "babinsa"){
+                $('.effect-hidden').removeClass('hidden');
+            }
             $('#dibuat_oleh').on('change', function() {
                 let level = $(this).find('option:selected').data('level');
-                console.log(level, level != "babinsa");
                 if(level != "babinsa"){
                     $('.effect-hidden').removeClass('hidden');
                 }else{
