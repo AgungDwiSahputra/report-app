@@ -34,7 +34,7 @@
             @endforeach
         </div>
 
-        <p class="font-bold mt-5">Informasi Surat</p>
+        <p class="font-bold mt-10">Informasi Surat</p>
         <div class="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-2 gap-4">
             <div class="h-32 flex items-center justify-center flex-col border-white bg-custom-green-500 text-white rounded-md shadow-md px-4 py-2">
                 <span class="block text-sm text-center">Jumlah Surat Dibuat</span>
