@@ -56,7 +56,7 @@
                                 $color = 'text-green-600';
                             }
                             if ($data->pengajuan->status == 'not-verify') {
-                                $status = 'Surat Tertolak';
+                                $status = 'Surat Tertolak (Revisi)';
                                 $link = 'javascript:void(0)';
                                 $color = 'text-red-600';
                             }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePenggunasTable extends Migration
+class AddCatatanToLaporanTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class CreatePenggunasTable extends Migration
      */
     public function up()
     {
-        Schema::create('penggunas', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('laporan', function (Blueprint $table) {
+            $table->text('catatan')->after('status')->nullable();
         });
     }
 
@@ -26,6 +25,8 @@ class CreatePenggunasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('penggunas');
+        Schema::table('laporan', function (Blueprint $table) {
+            $table->dropColumn('catatan');
+        });
     }
 }

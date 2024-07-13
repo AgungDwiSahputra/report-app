@@ -46,6 +46,12 @@
                         <button type="submit" class="btn-custom">Kirim</button>
                     </div>
                 </div>
+                <div class="flex items-center border border-gray-300 mt-4 rounded-lg overflow-hidden focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500">
+                    <span class="inline-flex items-center px-3 border-r-1 border-solid border-gray-300">
+                        Catatan: 
+                    </span>
+                    <textarea name="catatan" id="catatan" cols="30" rows="10" class="w-full h-10 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-custom-green-500 focus:border-custom-green-500 hover:border-custom-green-500 active:border-custom-green-500 sm:text-md">{{ old('catatan') }}</textarea>
+                </div>
             </form>
         </div>
     </div>

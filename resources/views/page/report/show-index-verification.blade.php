@@ -31,6 +31,7 @@
                         <th>Judul Laporan</th>
                         <th>Tanggal</th>
                         <th>Status</th>
+                        <th>Catatan</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -49,7 +50,7 @@
                                 $color = 'text-green-600';
                             }
                             if ($data->laporan->status == 'not-verify') {
-                                $status = 'Laporan Tertolak';
+                                $status = 'Laporan Tertolak (Revisi)';
                                 $link = 'javascript:void(0)';
                                 $color = 'text-red-600';
                             }
@@ -71,6 +72,7 @@
                                     {{ $status }}
                                 </a>
                             </td>
+                            <td>{{ ($data->laporan->catatan != null) ? $data->laporan->catatan : '-' }}</td>
                         </tr>
                     @endforeach
                 </tbody>

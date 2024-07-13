@@ -55,7 +55,7 @@
                                 $color = 'text-green-600';
                             }
                             if ($data->laporan->status == 'not-verify') {
-                                $status = 'Laporan Tertolak';
+                                $status = 'Laporan Tertolak (Revisi)';
                                 $link = 'javascript:void(0);';
                                 $color = 'text-red-600';
                             }

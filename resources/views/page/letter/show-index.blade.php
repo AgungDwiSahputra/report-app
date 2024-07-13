@@ -25,6 +25,7 @@
                         <th>Judul Surat</th>
                         <th>Tanggal</th>
                         <th>Status</th>
+                        <th>Catatan</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -49,7 +50,7 @@
                                 $color = 'text-green-600';
                             }
                             if ($data->pengajuan->status == 'not-verify') {
-                                $status = 'Surat Tertolak';
+                                $status = 'Surat Tertolak (Revisi)';
                                 // $link = 'javascript:void(0)';
                                 $color = 'text-red-600';
                             }
@@ -71,6 +72,7 @@
                                     {{ $status }}
                                 </a>
                             </td>
+                            <td>{{ ($data->pengajuan->catatan != null) ? $data->pengajuan->catatan : '-' }}</td>
                         </tr>
                     @endforeach
                 </tbody>

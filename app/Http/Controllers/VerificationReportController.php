@@ -143,6 +143,7 @@ class VerificationReportController extends Controller
         try {
             // Simpan data ke tabel laporan
             $laporan->status = $request->tindakan;
+            $laporan->catatan = $request->catatan;
             $laporan->save();
 
             if($request->tindakan == 'verification'){

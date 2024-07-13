@@ -160,6 +160,7 @@ class VerificationPengajuanController extends Controller
         try {
             // Simpan data ke tabel letter
             $letter->status = $request->tindakan;
+            $letter->catatan = $request->catatan;
             $letter->save();
 
             if($request->tindakan == 'agree'){
