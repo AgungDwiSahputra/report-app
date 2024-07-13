@@ -110,8 +110,8 @@
             </div>
             <div style="text-align: right;">
                 <span>Komandan {{ $data->wilayah_asal }}</span>
-                <img width="150" src="{{ public_path('images/ttd.png') }}" alt="Tanda Tangan Komandan">
-                <br><br><br>
+                <img width="100" height="100" src="{{ public_path('images/ttd.png') }}" alt="Tanda Tangan Komandan">
+                <br><br>
                 <span style="font-weight: bold;">{{ $data->penerima->nama_lengkap }}</span>
                 <span>NRP {{ $data->penerima->NRP }}</span>
             </div>
